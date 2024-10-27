@@ -4,115 +4,144 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vintage 90s Calculator</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Colorful Calculator</title>
+    <!-- Mengimpor font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <style>
-    /* Import Google font - VT323 for a retro look */
-    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Courier Prime', monospace;
+      font-family: 'Poppins', sans-serif;
     }
+    
     body {
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #f9f5e9;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
     }
+    
     .container {
       max-width: 300px;
       width: 100%;
-      border-radius: 8px;
+      border-radius: 15px;
       padding: 20px;
-      background: #333;
-      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
-      border: 2px solid #666;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
     }
+    
     .display {
       height: 80px;
       width: 100%;
-      border: 2px solid #666;
+      border: none;
+      border-radius: 10px;
       text-align: right;
       margin-bottom: 15px;
       font-size: 28px;
-      color: #e6e6e6;
-      background-color: #222;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.2);
       padding: 10px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+      font-weight: 500;
     }
+    
     .buttons {
       display: grid;
       grid-gap: 10px;
       grid-template-columns: repeat(4, 1fr);
     }
+    
     .buttons button {
       padding: 15px;
-      border-radius: 4px;
-      border: 1px solid #666;
-      font-size: 22px;
+      border-radius: 10px;
+      border: none;
+      font-size: 20px;
       cursor: pointer;
-      background-color: #444;
-      color: #e6e6e6;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
       transition: all 0.3s ease;
-      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      font-weight: 500;
     }
+    
     .buttons button:hover {
-      background-color: #555;
+      background: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
     }
+    
     .buttons button:active {
-      background-color: #666;
-      transform: scale(0.98);
+      transform: scale(0.95);
     }
+    
     .operator {
-      color: #e6e6e6;
-      font-weight: bold;
+      background: rgba(255, 255, 255, 0.2) !important;
+      font-weight: 600 !important;
     }
+    
     .history-container {
       display: none;
       margin-top: 20px;
       max-height: 100px;
       overflow-y: auto;
-      background: #222;
+      background: rgba(0, 0, 0, 0.2);
       padding: 10px;
-      border: 1px solid #666;
-      border-radius: 4px;
-      color: #e6e6e6;
-      font-size: 16px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 14px;
     }
+    
     .history-container ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
+    
     .history-container ul li {
       padding: 5px 0;
-      border-bottom: 1px solid #555;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
+    
     .reset-history-btn {
       display: none;
       margin-top: 10px;
       padding: 10px;
       width: 100%;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
-      background-color: #444;
-      color: #e6e6e6;
-      border: 1px solid #666;
-      border-radius: 4px;
-      transition: background 0.3s;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      transition: all 0.3s;
+      font-weight: 500;
     }
+    
     .reset-history-btn:hover {
-      background-color: #555;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Custom scrollbar untuk history */
+    .history-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .history-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+    
+    .history-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
     }
   </style>
   <body>
     <div class="container">
+      <h1 style="text-align: center;">Kalkulator</h1>
       <input type="text" class="display" readonly />
 
       <div class="buttons">
@@ -192,11 +221,11 @@
       };
 
       const resetHistory = () => {
-        historyList.innerHTML = ""; // Hapus semua item histori
-        historyContainer.style.display = "none"; // Sembunyikan container histori
-        resetHistoryBtn.style.display = "none"; // Sembunyikan tombol reset
-        display.value = ""; // Hapus nilai tampilan input
-        output = ""; // Reset variabel output
+        historyList.innerHTML = "";
+        historyContainer.style.display = "none";
+        resetHistoryBtn.style.display = "none";
+        display.value = "";
+        output = "";
       };
 
       buttons.forEach((button) => {
