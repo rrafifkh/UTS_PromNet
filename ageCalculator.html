@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vintage Age Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styleAgeCal.css">
+</head>
+<style>
+    /* Mengatur dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f5e9; /* Warna latar belakang lembut */
+}
+
+.container {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 30px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border: 2px solid #717171; /* Warna bingkai klasik */
+  border-radius: 15px;
+  width: 300px;
+  position: relative;
+}
+
+/* Judul Vintage */
+.vintage-title {
+  font-family: 'Great Vibes', cursive; /* Font dekoratif untuk judul */
+  font-size: 2.5rem;
+  color: #717171;
+  margin-bottom: 20px;
+}
+
+/* Hiasan Garis */
+.vintage-title::before,
+.vintage-title::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  height: 3px;
+  width: 50px;
+  background-color: #717171;
+}
+
+.vintage-title::before {
+  left: 10px;
+}
+
+.vintage-title::after {
+  right: 10px;
+}
+
+p {
+  color: #505050; /* Warna teks klasik */
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+input[type="date"] {
+  padding: 8px;
+  font-size: 1rem;
+  margin: 10px 0;
+  width: 100%;
+  border: 1px solid #717171;
+  border-radius: 5px;
+  background-color: #f9f5e9;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #717171;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+button:hover {
+  background-color: #717171;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #6e4e37;
+  font-style: italic;
+}
+
+/* Efek vintage pada container */
+.container::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.05);
+  pointer-events: none;
+}
+
+</style>
+<body>
+  <div class="container">
+    <h1 class="vintage-title">Age Calculator</h1>
+    <p>Masukkan tanggal lahir untuk mengkalkulasikan umur:</p>
+
+    <input type="date" id="dob">
+    <button onclick="calculateAge()">Kalkulasikan Umur</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+    const dobInput = document.getElementById("dob").value;
+    const resultDiv = document.getElementById("result");
+  
+    if (!dobInput) {
+      resultDiv.innerHTML = "Mohon pilih tanggal lahir anda.";
+      return;
+    }
+  
+    const dob = new Date(dobInput);
+    const today = new Date();
+  
+    let ageYears = today.getFullYear() - dob.getFullYear();
+    let ageMonths = today.getMonth() - dob.getMonth();
+    let ageDays = today.getDate() - dob.getDate();
+  
+    if (ageDays < 0) {
+      ageMonths--;
+      ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    }
+    if (ageMonths < 0) {
+      ageYears--;
+      ageMonths += 12;
+    }
+  
+    resultDiv.innerHTML = `Umur kamu ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`;
+  }
+  
+  </script>
+</body>
+</html>

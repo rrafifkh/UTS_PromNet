@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Timer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Courier Prime', monospace;
+      background-color: #f4f4f4;
+    }
+
+    .timer-container {
+      text-align: center;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 300px;
+    }
+
+    #timer {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .input-group input {
+      width: 60px;
+      padding: 8px;
+      font-size: 1em;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      font-size: 1em;
+      padding: 10px 15px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    #start {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #start:hover {
+      background-color: #218838;
+    }
+
+    #stop {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    #stop:hover {
+      background-color: #c82333;
+    }
+
+    #reset {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #reset:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer-container">
+    <h1 id="timer">00:00:00</h1>
+    <div class="input-group">
+      <div>
+        <label for="hours">Hours</label>
+        <input type="number" id="hours" min="0" placeholder="0">
+      </div>
+      <div>
+        <label for="minutes">Minutes</label>
+        <input type="number" id="minutes" min="0" placeholder="0">
+      </div>
+      <div>
+        <label for="seconds">Seconds</label>
+        <input type="number" id="seconds" min="0" placeholder="0">
+      </div>
+    </div>
+    <div class="button-group">
+      <button id="start">Start Timer</button>
+      <button id="stop">Stop</button>
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    let timer;
+    let totalSeconds = 0;
+    let isRunning = false;
+
+    function formatTime(sec) {
+      let hrs = Math.floor(sec / 3600);
+      let mins = Math.floor((sec % 3600) / 60);
+      let secs = sec % 60;
+
+      if (hrs < 10) hrs = '0' + hrs;
+      if (mins < 10) mins = '0' + mins;
+      if (secs < 10) secs = '0' + secs;
+
+      return `${hrs}:${mins}:${secs}`;
+    }
+
+    function updateTimer() {
+      document.getElementById('timer').textContent = formatTime(totalSeconds);
+    }
+
+    document.getElementById('start').addEventListener('click', () => {
+      if (!isRunning) {
+        let hrs = parseInt(document.getElementById('hours').value) || 0;
+        let mins = parseInt(document.getElementById('minutes').value) || 0;
+        let secs = parseInt(document.getElementById('seconds').value) || 0;
+
+        totalSeconds = hrs * 3600 + mins * 60 + secs;
+        updateTimer();
+
+        if (totalSeconds > 0) {
+          isRunning = true;
+          timer = setInterval(() => {
+            if (totalSeconds <= 0) {
+              clearInterval(timer);
+              isRunning = false;
+              alert("Time's up!");
+            } else {
+              totalSeconds--;
+              updateTimer();
+            }
+          }, 1000);
+        } else {
+          alert("Please set a valid timer duration.");
+        }
+      }
+    });
+
+    document.getElementById('stop').addEventListener('click', () => {
+      clearInterval(timer);
+      isRunning = false;
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+      clearInterval(timer);
+      totalSeconds = 0;
+      isRunning = false;
+      updateTimer();
+      document.getElementById('hours').value = '';
+      document.getElementById('minutes').value = '';
+      document.getElementById('seconds').value = '';
+    });
+  </script>
+</body>
+</html>
