@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vintage Age Calculator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styleAgeCal.css">
+  <title>Colorful Age Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <style>
-    /* Mengatur dasar */
+/* Mengatur dasar */
 * {
   margin: 0;
   padding: 0;
@@ -21,96 +20,102 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #f9f5e9; /* Warna latar belakang lembut */
+  background: linear-gradient(135deg, #f0e5d8, #f9d6d2, #fde2e4); /* Background gradasi lembut */
 }
 
+/* Container utama */
 .container {
   text-align: center;
   background-color: #ffffff;
-  padding: 30px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  border: 2px solid #717171; /* Warna bingkai klasik */
+  padding: 30px 20px;
+  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
-  width: 300px;
+  width: 350px;
   position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
-/* Judul Vintage */
+.container:hover {
+  transform: scale(1.03);
+}
+
+/* Judul dan garis hias */
 .vintage-title {
-  font-family: 'Great Vibes', cursive; /* Font dekoratif untuk judul */
-  font-size: 2.5rem;
-  color: #717171;
+  font-size: 2.2rem;
+  color: #555273;
   margin-bottom: 20px;
+  position: relative;
+  font-weight: 600;
 }
 
-/* Hiasan Garis */
-.vintage-title::before,
 .vintage-title::after {
-  content: "";
   position: absolute;
-  top: 10px;
-  height: 3px;
-  width: 50px;
-  background-color: #717171;
-}
-
-.vintage-title::before {
-  left: 10px;
-}
-
-.vintage-title::after {
-  right: 10px;
+  top: 50%;
+  left: -15px;
+  right: -15px;
+  height: 2px;
+  background: linear-gradient(90deg, #f28b81, #f8b500, #52b2cf);
+  opacity: 0.8;
 }
 
 p {
-  color: #505050; /* Warna teks klasik */
+  color: #737373;
+  font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 input[type="date"] {
-  padding: 8px;
+  padding: 10px;
   font-size: 1rem;
   margin: 10px 0;
   width: 100%;
-  border: 1px solid #717171;
-  border-radius: 5px;
-  background-color: #f9f5e9;
+  border: 2px solid #d4a5a5;
+  border-radius: 8px;
+  background-color: #fafafa;
+  outline: none;
+  transition: all 0.3s;
+}
+
+input[type="date"]:focus {
+  border-color: #52b2cf;
 }
 
 button {
-  padding: 10px 20px;
-  background-color: #717171;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #52b2cf, #f28b81);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 500;
+  transition: background 0.3s;
 }
 
 button:hover {
-  background-color: #717171;
+  background: linear-gradient(135deg, #f28b81, #f8b500);
 }
 
 #result {
   margin-top: 20px;
   font-size: 1.2rem;
-  color: #6e4e37;
+  color: #555273;
   font-style: italic;
 }
 
-/* Efek vintage pada container */
+/* Efek bayangan lembut pada container */
 .container::before {
   content: '';
   position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 18px;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.05);
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 0.04);
   pointer-events: none;
 }
 
@@ -128,33 +133,32 @@ button:hover {
 
   <script>
     function calculateAge() {
-    const dobInput = document.getElementById("dob").value;
-    const resultDiv = document.getElementById("result");
-  
-    if (!dobInput) {
-      resultDiv.innerHTML = "Mohon pilih tanggal lahir anda.";
-      return;
+      const dobInput = document.getElementById("dob").value;
+      const resultDiv = document.getElementById("result");
+
+      if (!dobInput) {
+        resultDiv.innerHTML = "Mohon pilih tanggal lahir anda.";
+        return;
+      }
+
+      const dob = new Date(dobInput);
+      const today = new Date();
+
+      let ageYears = today.getFullYear() - dob.getFullYear();
+      let ageMonths = today.getMonth() - dob.getMonth();
+      let ageDays = today.getDate() - dob.getDate();
+
+      if (ageDays < 0) {
+        ageMonths--;
+        ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+      if (ageMonths < 0) {
+        ageYears--;
+        ageMonths += 12;
+      }
+
+      resultDiv.innerHTML = `Umur kamu ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`;
     }
-  
-    const dob = new Date(dobInput);
-    const today = new Date();
-  
-    let ageYears = today.getFullYear() - dob.getFullYear();
-    let ageMonths = today.getMonth() - dob.getMonth();
-    let ageDays = today.getDate() - dob.getDate();
-  
-    if (ageDays < 0) {
-      ageMonths--;
-      ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-    }
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths += 12;
-    }
-  
-    resultDiv.innerHTML = `Umur kamu ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`;
-  }
-  
   </script>
 </body>
 </html>
