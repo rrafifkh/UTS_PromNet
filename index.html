@@ -8,342 +8,457 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
-    /* Googlefont Poppins CDN Link */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-    }
-    body {
-        min-height: 100vh;
-    }
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 70px;
-        background: #7a7a7a;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        z-index: 99;
-    }
-    nav .navbar {
-        height: 100%;
-        max-width: 1250px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: auto;
-        padding: 0 50px;
+/* Googlefont Poppins CDN Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap'); 
+/* Mengimpor font Poppins dari Google Fonts dengan berbagai ketebalan, yang akan diterapkan di seluruh halaman */
+
+/* Reset margin, padding, dan pengaturan box model dasar */
+* { 
+    margin: 0; /* Menghilangkan margin default dari semua elemen */
+    padding: 0; /* Menghilangkan padding default dari semua elemen */
+    box-sizing: border-box; /* Mengatur box-sizing agar padding dan border tidak menambah ukuran elemen */
+    font-family: 'Poppins', sans-serif; /* Mengatur font untuk semua elemen agar menggunakan font Poppins */
+}
+
+/* Styling untuk elemen body halaman */
+body { 
+    min-height: 100vh; /* Memastikan tinggi minimum body adalah 100% dari tinggi viewport */
+    background: linear-gradient(120deg, #f6ffe2 0%, #e4fffd 100%); /* Menetapkan background gradien untuk halaman */
+}
+
+/* Styling untuk elemen navigasi (nav) */
+nav { 
+    position: fixed; /* Memastikan nav tetap di posisi atas saat halaman di-scroll */
+    top: 0; /* Mengatur posisi nav di bagian atas halaman */
+    left: 0; /* Mengatur posisi nav di sisi kiri halaman */
+    width: 100%; /* Lebar nav menutupi seluruh lebar halaman */
+    height: 70px; /* Tinggi nav diatur sebesar 70px */
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Warna gradien latar belakang nav */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Memberi bayangan untuk efek kedalaman */
+    z-index: 99; /* Menempatkan nav di atas elemen lain dengan menaikkan tingkat z-index */
+}
+
+/* Styling untuk kontainer dalam navigasi */
+.navbar { 
+    height: 100%; /* Tinggi kontainer disamakan dengan tinggi nav */
+    max-width: 1250px; /* Lebar maksimal kontainer diatur agar responsif */
+    width: 100%; /* Lebar kontainer menyesuaikan dengan nav */
+    display: flex; /* Menggunakan flexbox untuk mengatur tata letak elemen di dalamnya */
+    align-items: center; /* Memposisikan elemen di tengah vertikal */
+    justify-content: space-between; /* Menyebarkan elemen di antara awal dan akhir kontainer */
+    margin: auto; /* Menengahkan kontainer secara horizontal */
+    padding: 0 50px; /* Menambahkan padding kiri dan kanan sebesar 50px */
+}
+
+/* Styling untuk logo dalam navbar */
+.navbar .logo a { 
+    font-size: 30px; /* Mengatur ukuran font logo */
+    color: #ffffff; /* Mengatur warna teks logo menjadi putih */
+    text-decoration: none; /* Menghilangkan garis bawah pada teks tautan */
+    font-weight: 600; /* Membuat teks lebih tebal */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Memberi bayangan pada teks untuk efek kedalaman */
+}
+
+/* Styling untuk tautan navigasi (nav-links) */
+.navbar .nav-links { 
+    line-height: 70px; /* Menetapkan tinggi garis agar teks berada di tengah secara vertikal */
+    height: 100%; /* Tinggi nav-links disamakan dengan kontainer navbar */
+}
+
+/* Mengatur tampilan elemen links */
+.navbar .links { 
+    display: flex; /* Menampilkan tautan dalam satu baris */
+}
+
+
+.navbar .links li {
+    position: relative; /* Menetapkan posisi relatif pada setiap item list agar elemen submenu dapat diposisikan secara absolut */
+    display: flex; /* Menyusun elemen di dalam item list secara horizontal */
+    align-items: center; /* Memposisikan konten di tengah secara vertikal */
+    justify-content: space-between; /* Menyebarkan elemen di dalam item list */
+    list-style: none; /* Menghilangkan gaya bullet default pada item list */
+    padding: 0 14px; /* Memberikan padding kiri dan kanan untuk ruang di sekitar elemen */
+}
+
+.navbar .links li a {
+    height: 100%; /* Menetapkan tinggi anchor (tautan) agar sesuai dengan tinggi item list */
+    text-decoration: none; /* Menghilangkan garis bawah pada teks tautan */
+    white-space: nowrap; /* Mencegah teks beralih ke baris baru */
+    color: #ffffff; /* Mengatur warna teks menjadi putih */
+    font-size: 15px; /* Mengatur ukuran font untuk tautan */
+    font-weight: 500; /* Menambah ketebalan font */
+    transition: all 0.3s ease; /* Menambahkan transisi halus untuk perubahan visual, seperti warna */
+}
+
+.navbar .links li a:hover {
+    color: #FFE66D; /* Mengubah warna teks saat tautan dihover */
+    text-shadow: 0 0 10px rgba(255, 230, 109, 0.5); /* Memberikan efek bayangan pada teks saat dihover */
+}
+
+.links li:hover .htmlcss-arrow,
+.links li:hover .js-arrow {
+    transform: rotate(180deg); /* Memutar ikon panah sebesar 180 derajat saat item list dihover */
+}
+
+.links li .sub-menu {
+    position: absolute; /* Menempatkan submenu secara absolut relatif terhadap item induknya */
+    top: 70px; /* Mengatur jarak submenu dari item induk di bagian atas */
+    left: 0; /* Menyelaraskan submenu ke kiri */
+    line-height: 40px; /* Mengatur tinggi baris untuk meningkatkan keterbacaan */
+    background: linear-gradient(45deg, #4ECDC4, #2AB7CA); /* Memberikan gradien pada latar belakang submenu */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Memberikan bayangan untuk efek kedalaman */
+    border-radius: 0 0 8px 8px; /* Membulatkan sudut bawah submenu */
+    display: none; /* Menyembunyikan submenu secara default */
+    z-index: 2; /* Mengatur urutan tumpukan agar submenu berada di depan elemen lain */
+}
+
+.links li:hover .htmlCss-sub-menu,
+.links li:hover .js-sub-menu {
+    display: block; /* Menampilkan submenu saat item list dihover */
+}
+
+.navbar .links li .sub-menu li {
+    padding: 0 22px; /* Memberikan padding kiri dan kanan pada setiap item submenu */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Garis bawah untuk memisahkan setiap item dalam submenu */
+}
+
+.navbar .links li .sub-menu a {
+    color: #ffffff; /* Mengatur warna teks submenu menjadi putih */
+    font-size: 15px; /* Mengatur ukuran font pada item submenu */
+    font-weight: 500; /* Menambah ketebalan font untuk keterbacaan */
+}
+
+.navbar .search-box {
+    position: relative; /* Menetapkan posisi relatif untuk kotak pencarian */
+    height: 40px; /* Mengatur tinggi kotak pencarian */
+    width: 40px; /* Mengatur lebar kotak pencarian */
+}
+
+.search-box i {
+    position: absolute; /* Menempatkan ikon secara absolut di dalam kotak pencarian */
+    height: 100%; /* Tinggi ikon sesuai dengan kotak pencarian */
+    width: 100%; /* Lebar ikon sesuai dengan kotak pencarian */
+    line-height: 40px; /* Mengatur ikon di tengah secara vertikal */
+    text-align: center; /* Mengatur ikon di tengah secara horizontal */
+    font-size: 22px; /* Ukuran font untuk ikon pencarian */
+    color: #FFE66D; /* Warna ikon */
+    font-weight: 600; /* Menambah ketebalan ikon */
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat dihover */
+    transition: all 0.3s ease; /* Menambahkan transisi halus pada ikon saat terjadi perubahan */
+}
+
+.search-box .input-box {
+    position: absolute; /* Menempatkan kotak input secara absolut dalam kotak pencarian */
+    right: calc(100% - 40px); /* Posisi input berada di sebelah kanan kotak pencarian */
+    top: 80px; /* Menempatkan input box di bawah kotak pencarian */
+    height: 60px; /* Tinggi input box */
+    width: 300px; /* Lebar input box */
+    background: linear-gradient(45deg, #FF6B6B, #FF9999); /* Gradien pada latar belakang input box */
+    border-radius: 10px; /* Membulatkan sudut input box */
+    opacity: 0; /* Membuat input box transparan secara default */
+    pointer-events: none; /* Mencegah interaksi dengan input box secara default */
+    transition: all 0.4s ease; /* Menambahkan transisi halus untuk animasi input box */
+}
+
+
+.navbar.showInput .search-box .input-box {
+    top: 65px; /* Menurunkan posisi input box agar terlihat lebih dekat dengan navbar saat ditampilkan */
+    opacity: 1; /* Menampilkan input box dengan mengatur opacity menjadi 1 */
+    pointer-events: auto; /* Mengaktifkan interaksi pada input box */
+}
+
+.search-box .input-box::before {
+    content: ''; /* Membuat elemen sebelum input box, tanpa teks */
+    position: absolute; /* Memposisikan elemen ini relatif terhadap input box */
+    height: 20px; /* Tinggi elemen dekoratif */
+    width: 20px; /* Lebar elemen dekoratif */
+    background: #FF6B6B; /* Warna latar belakang elemen dekoratif */
+    right: 10px; /* Jarak elemen ini dari sisi kanan input box */
+    top: -6px; /* Menempatkan elemen sedikit di atas input box */
+    transform: rotate(45deg); /* Memutar elemen 45 derajat untuk membentuk panah */
+}
+
+.search-box .input-box input {
+    position: absolute; /* Menempatkan input secara absolut dalam input box */
+    top: 50%; /* Memposisikan input di tengah vertikal */
+    left: 50%; /* Memposisikan input di tengah horizontal */
+    border-radius: 8px; /* Membuat sudut input menjadi melengkung */
+    transform: translate(-50%, -50%); /* Memposisikan input tepat di tengah */
+    height: 35px; /* Tinggi input */
+    width: 280px; /* Lebar input */
+    outline: none; /* Menghilangkan outline default */
+    padding: 0 15px; /* Memberikan padding dalam input untuk kenyamanan */
+    font-size: 16px; /* Ukuran font input */
+    border: none; /* Menghilangkan border input */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Memberikan bayangan lembut pada input untuk efek kedalaman */
+}
+
+.nav-links .sidebar-logo {
+    display: none; /* Menyembunyikan logo sidebar secara default */
+}
+
+.bx-menu {
+    display: none; /* Menyembunyikan ikon menu pada perangkat besar */
+}
+
+@media (max-width: 920px) {
+    .navbar {
+        max-width: 100%; /* Mengatur lebar navbar agar sesuai dengan lebar layar */
+        padding: 0 25px; /* Mengurangi padding navbar */
     }
     .navbar .logo a {
-        font-size: 30px;
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
+        font-size: 27px; /* Mengecilkan ukuran font logo */
     }
-    nav .navbar .nav-links {
-        line-height: 70px;
-        height: 100%;
+    .navbar .links li {
+        padding: 0 10px; /* Mengurangi padding di dalam item link */
     }
-    nav .navbar .links {
-        display: flex;
+    .navbar .links li a {
+        font-size: 15px; /* Mengurangi ukuran font tautan */
     }
-    nav .navbar .links li {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        list-style: none;
-        padding: 0 14px;
+}
+
+@media (max-width: 800px) {
+    .bx-menu {
+        display: block; /* Menampilkan ikon menu pada perangkat kecil */
     }
-    nav .navbar .links li a {
-        height: 100%;
-        text-decoration: none;
-        white-space: nowrap;
-        color: #fff;
-        font-size: 15px;
-        font-weight: 500;
+    .nav-links {
+        position: fixed; /* Menempatkan nav-links tetap saat di-scroll */
+        top: 0; /* Menempatkan nav-links di bagian atas layar */
+        left: -100%; /* Menggeser nav-links keluar dari tampilan */
+        max-width: 270px; /* Lebar maksimum nav-links */
+        background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Warna gradien latar belakang */
+        padding: 20px; /* Padding di dalam nav-links */
+        transition: all 0.5s ease; /* Transisi halus saat menampilkan nav-links */
+        z-index: 1000; /* Memastikan nav-links berada di depan elemen lain */
     }
-    .links li:hover .htmlcss-arrow,
-    .links li:hover .js-arrow {
-        transform: rotate(180deg);
+    .sidebar-logo {
+        display: flex; /* Menampilkan logo sidebar dan membuatnya dalam satu baris */
+        align-items: center; /* Memposisikan elemen secara vertikal di tengah */
+        justify-content: space-between; /* Memberi ruang antara logo dan ikon tutup */
     }
-    nav .navbar .links li .arrow {
-        height: 100%;
-        width: 22px;
-        line-height: 70px;
-        text-align: center;
-        display: inline-block;
-        color: #fff;
-        transition: all 0.3s ease;
+    .sidebar-logo .logo-name,
+    .sidebar-logo i,
+    .bx-menu {
+        color: #ff0000; /* Warna merah untuk teks logo dan ikon */
     }
-    nav .navbar .links li .sub-menu {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        line-height: 40px;
-        background: #7a7a7a;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        border-radius: 0 0 4px 4px;
-        display: none;
-        z-index: 2;
+    .links {
+        display: block; /* Menampilkan item link dalam satu kolom */
+        margin-top: 20px; /* Memberi jarak atas pada daftar link */
     }
-    nav .navbar .links li:hover .htmlCss-sub-menu,
-    nav .navbar .links li:hover .js-sub-menu {
-        display: block;
+    .links li {
+        display: block; /* Setiap tautan ditampilkan dalam satu baris */
     }
-    .navbar .links li .sub-menu li {
-        padding: 0 22px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .links li .sub-menu {
+        position: relative; /* Menempatkan submenu relatif terhadap item induknya */
+        top: 0; /* Menyelaraskan submenu dengan item induk */
+        display: none; /* Menyembunyikan submenu secara default */
     }
-    .navbar .links li .sub-menu a {
-        color: #fff;
-        font-size: 15px;
-        font-weight: 500;
+}
+
+@media (max-width: 370px) {
+    .nav-links {
+        max-width: 100%; /* Menyesuaikan lebar nav-links dengan lebar layar pada perangkat kecil */
     }
-    .navbar .links li .sub-menu .more-arrow {
-        line-height: 40px;
-    }
-    .navbar .links li .sub-menu .more-sub-menu {
-        position: absolute;
-        top: 0;
-        left: 100%;
-        border-radius: 0 4px 4px 4px;
-        z-index: 1;
-        display: none;
-    }
-    .links li .sub-menu .more:hover .more-sub-menu {
-        display: block;
-    }
-    .navbar .search-box {
-        position: relative;
-        height: 40px;
-        width: 40px;
-    }
-    .navbar .search-box i {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        line-height: 40px;
-        text-align: center;
-        font-size: 22px;
-        color: #fff;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .navbar .search-box .input-box {
-        position: absolute;
-        right: calc(100% - 40px);
-        top: 80px;
-        height: 60px;
-        width: 300px;
-        background: #7a7a7a;
-        border-radius: 6px;
-        opacity: 0;
-        pointer-events: none;
-        transition: all 0.4s ease;
-    }
-    .navbar.showInput .search-box .input-box {
-        top: 65px;
-        opacity: 1;
-        pointer-events: auto;
-        background: #7a7a7a;
-    }
-    .search-box .input-box::before {
-        content: '';
-        position: absolute;
-        height: 20px;
-        width: 20px;
-        background: #ffffff;
-        right: 10px;
-        top: -6px;
-        transform: rotate(45deg);
-    }
-    .search-box .input-box input {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        border-radius: 4px;
-        transform: translate(-50%, -50%);
-        height: 35px;
-        width: 280px;
-        outline: none;
-        padding: 0 15px;
-        font-size: 16px;
-        border: none;
-    }
-    .navbar .nav-links .sidebar-logo {
-        display: none;
-    }
-    .navbar .bx-menu {
-        display: none;
-    }
-    @media (max-width: 920px) {
-        nav .navbar {
-            max-width: 100%;
-            padding: 0 25px;
-        }
-        nav .navbar .logo a {
-            font-size: 27px;
-        }
-        nav .navbar .links li {
-            padding: 0 10px;
-            white-space: nowrap;
-        }
-        nav .navbar .links li a {
-            font-size: 15px;
-        }
-    }
-    @media (max-width: 800px) {
-        .navbar .bx-menu {
-            display: block;
-        }
-        nav .navbar .nav-links {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            max-width: 270px;
-            background: #3E8DA8;
-            padding: 20px;
-            transition: all 0.5s ease;
-            z-index: 1000;
-        }
-        .navbar .nav-links .sidebar-logo {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .sidebar-logo .logo-name {
-            font-size: 25px;
-            color: #fff;
-        }
-        .sidebar-logo i,
-        .navbar .bx-menu {
-            font-size: 25px;
-            color: #fff;
-        }
-        nav .navbar .links {
-            display: block;
-            margin-top: 20px;
-        }
-        nav .navbar .links li .arrow {
-            line-height: 40px;
-        }
-        nav .navbar .links li {
-            display: block;
-        }
-        nav .navbar .links li .sub-menu {
-            position: relative;
-            top: 0;
-            display: none;
-        }
-        .links li .sub-menu .more:hover .more-sub-menu {
-            display: none;
-        }
-    }
-    @media (max-width: 370px) {
-        nav .navbar .nav-links {
-            max-width: 100%;
-        }
-    }
+}
+
+.welcome-section {
+    text-align: center; /* Teks berada di tengah */
+    padding: 100px 20px 40px; /* Padding untuk mengatur jarak konten dari tepi */
+}
+.welcome-section h1 {
+    font-size: 36px; /* Ukuran font untuk judul */
+    color: #FF6B6B; /* Warna merah pada judul */
+}
+.welcome-section p {
+    font-size: 18px; /* Ukuran font pada paragraf */
+    color: #333; /* Warna teks paragraf */
+    margin-top: 10px; /* Jarak dari judul */
+}
+
+.features-gallery {
+    text-align: center; /* Teks dan konten berada di tengah */
+    padding: 40px 20px; /* Padding untuk mengatur jarak dalam galeri fitur */
+    background: #e4fffd; /* Warna latar belakang galeri */
+}
+
+.features-gallery h2 {
+    font-size: 28px; /* Ukuran font judul galeri fitur */
+    color: #FF6B6B; /* Warna merah pada judul */
+    margin-bottom: 20px; /* Memberikan jarak bawah pada judul */
+}
+
+.gallery {
+    display: grid; /* Menampilkan galeri dalam bentuk grid */
+    grid-template-columns: repeat(2, 1fr); /* Membuat dua kolom dalam galeri */
+    gap: -100px; /* Mengurangi jarak antara item gambar */
+    justify-items: center; /* Menempatkan item di tengah dalam kolom grid */
+}
+
+.gallery-item {
+    width: 600px; /* Lebar setiap item galeri */
+    text-align: center; /* Menempatkan teks di tengah */
+    position: relative; /* Menetapkan posisi relatif untuk elemen anak */
+}
+
+.gallery-item img {
+    width: 100%; /* Gambar menyesuaikan dengan lebar kontainer */
+    height: auto; /* Menyesuaikan tinggi gambar secara proporsional */
+    border-radius: 10px; /* Membuat sudut gambar melengkung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Memberikan bayangan untuk efek kedalaman */
+    transition: transform 0.3s ease; /* Efek transisi pada gambar saat dihover */
+}
+
+
+.gallery-item img:hover {
+    transform: scale(1.05); /* Memperbesar gambar sedikit saat dihover, memberikan efek zoom */
+}
+
+.gallery-item p {
+    margin-top: 8px; /* Memberikan jarak antara gambar dan teks keterangan */
+    font-size: 16px; /* Mengatur ukuran font teks keterangan */
+    color: #ffffff; /* Warna teks keterangan menjadi putih */
+    background-color: #FF6B6B; /* Latar belakang keterangan berwarna merah muda */
+    padding: 5px 10px; /* Memberikan ruang di sekitar teks keterangan */
+    border-radius: 8px; /* Membuat sudut keterangan melengkung */
+    display: inline-block; /* Menampilkan teks keterangan dalam satu blok inline */
+    margin-top: -30px; /* Menarik keterangan lebih dekat dengan gambar */
+    position: relative; /* Menjadikan posisi keterangan relatif untuk mengatur posisinya */
+    top: -20px; /* Menarik posisi keterangan ke atas agar lebih dekat dengan gambar */
+}
+
 </style>
 <body>
-<nav>
-    <div class="navbar">
-        <i class='bx bx-menu'></i>
-        <div class="logo"><a href="#">Radenner</a></div>
-        <div class="nav-links">
-            <div class="sidebar-logo">
-                <span class="logo-name">Radenner</span>
-                <i class='bx bx-x'></i>
+    <nav>
+        <div class="navbar">
+            <i class='bx bx-menu'></i> <!-- Ikon menu untuk membuka sidebar di perangkat kecil -->
+            <div class="logo"><a href="#">Radenner</a></div> <!-- Logo situs yang mengarahkan ke halaman utama -->
+            <div class="nav-links">
+                <div class="sidebar-logo">
+                    <span class="logo-name">Radenner</span> <!-- Nama logo ditampilkan pada sidebar -->
+                    <i class='bx bx-x'></i> <!-- Ikon untuk menutup sidebar -->
+                </div>
+                <ul class="links"> <!-- Daftar tautan navigasi -->
+                    <li><a href="#">HOME</a></li> <!-- Tautan ke halaman utama -->
+                    <li>
+                        <a href="#">FEATURE</a> <!-- Tautan fitur dengan submenu -->
+                        <ul class="htmlCss-sub-menu sub-menu"> <!-- Submenu untuk berbagai fitur -->
+                            <li><a href="ageCalculator.html">Age Calculator</a></li> <!-- Tautan kalkulator usia -->
+                            <li><a href="calculator.html">Calculator</a></li> <!-- Tautan kalkulator -->
+                            <li><a href="quizApp.html">Quiz App</a></li> <!-- Tautan aplikasi kuis -->
+                            <li><a href="stopwatch.html">Stopwatch</a></li> <!-- Tautan stopwatch -->
+                            <li><a href="weatherApp.html">Weather App</a></li> <!-- Tautan aplikasi cuaca -->
+                            <li><a href="timer.html">Timer</a></li> <!-- Tautan timer -->
+                        </ul>
+                    </li>
+                    <li><a href="aboutme.html">ABOUT ME</a></li> <!-- Tautan halaman tentang saya -->
+                    <li><a href="contactme.html">CONTACT ME</a></li> <!-- Tautan halaman kontak -->
+                </ul>
             </div>
-            <ul class="links">
-                <li><a href="#">HOME</a></li>
-                <li>
-                    <a href="#">FEATURE</a>
-                    <i class='bx bxs-chevron-down htmlcss-arrow arrow'></i>
-                    <ul class="htmlCss-sub-menu sub-menu">
-                        <li><a href="ageCalculator.html">Age Calculator</a></li>
-                        <li><a href="calculator.html">Calculator</a></li>
-                        <li><a href="quizApp.html">Quiz App</a></li>
-                        <li><a href="stopwatch.html">Stopwatch</a></li>
-                        <li><a href="weatherApp.html">Weather App</a></li>
-                        <li class="more">
-                            <span><a href="#">More</a>
-                            <i class='bx bxs-chevron-right arrow more-arrow'></i></span>
-                            <ul class="more-sub-menu sub-menu">
-                                <li><a href="#">Haha</a></li>
-                                <li><a href="#">Hihi</a></li>
-                                <li><a href="#">Huhu</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">GALERY</a>
-                    <i class='bx bxs-chevron-down js-arrow arrow'></i>
-                    <ul class="js-sub-menu sub-menu">
-                        <li><a href="#">Rafif</a></li>
-                        <li><a href="#">Triani</a></li>
-                        <li><a href="#">Raden</a></li>
-                        <li><a href="#">Hartika</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">ABOUT US</a></li>
-                <li><a href="#">CONTACT US</a></li>
-            </ul>
-        </div>
-        <div class="search-box">
-            <i class='bx bx-search'></i>
-            <div class="input-box">
-                <input type="text" placeholder="Search...">
+            <div class="search-box"> <!-- Kotak pencarian -->
+                <i class='bx bx-search'></i> <!-- Ikon pencarian -->
+                <div class="input-box">
+                    <input type="text" placeholder="Search..."> <!-- Input pencarian -->
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+    
+    <!-- Perkenalan dan Galeri -->
+    <section class="welcome-section">
+        <h1>Selamat Datang</h1> <!-- Judul selamat datang pada halaman -->
+        <p>Ini adalah website yang berisi fitur-fitur interaktif yang telah saya buat. Silakan menjelajahi fitur yang tersedia di bawah ini!</p> <!-- Deskripsi singkat halaman -->
+    </section>
+    
+    <!-- Galeri Fitur -->
+    <section class="features-gallery">
+        <h2>Fitur-fitur</h2> <!-- Judul bagian galeri fitur -->
+        <div class="gallery"> <!-- Kontainer galeri fitur -->
+            <div class="gallery-item">
+                <a href="ageCalculator.html">
+                    <img src="img/Agecalculator.png" alt="Age Calculator"> <!-- Gambar dan tautan kalkulator usia -->
+                    <p>Age Calculator</p> <!-- Keterangan untuk fitur kalkulator usia -->
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="weatherApp.html">
+                    <img src="img/cuaca.png" alt="Weather App"> <!-- Gambar dan tautan aplikasi cuaca -->
+                    <p>Weather App</p> <!-- Keterangan untuk fitur aplikasi cuaca -->
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="timer.html">
+                    <img src="img/timer.png" alt="Timer"> <!-- Gambar dan tautan timer -->
+                    <p>Timer</p> <!-- Keterangan untuk fitur timer -->
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="stopwatch.html">
+                    <img src="img/stopwatch.png" alt="Stopwatch"> <!-- Gambar dan tautan stopwatch -->
+                    <p>Stopwatch</p> <!-- Keterangan untuk fitur stopwatch -->
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="quizApp.html">
+                    <img src="img/kuis.png" alt="Quiz App"> <!-- Gambar dan tautan aplikasi kuis -->
+                    <p>Quiz App</p> <!-- Keterangan untuk fitur aplikasi kuis -->
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="calculator.html">
+                    <img src="img/kalkulator.png" alt="Calculator"> <!-- Gambar dan tautan kalkulator -->
+                    <p>Calculator</p> <!-- Keterangan untuk fitur kalkulator -->
+                </a>
+            </div>
+        </div>
+    </section>
+    
+
+
+
+
 <script>
-    let navbar = document.querySelector(".navbar");
-    let searchBox = document.querySelector(".search-box .bx-search");
+let navbar = document.querySelector(".navbar"); // Mendapatkan elemen navbar dari HTML
+let searchBox = document.querySelector(".search-box .bx-search"); // Mendapatkan elemen search box ikon pencarian
 
-    searchBox.addEventListener("click", () => {
-        navbar.classList.toggle("showInput");
-        if (navbar.classList.contains("showInput")) {
-            searchBox.classList.replace("bx-search", "bx-x");
-        } else {
-            searchBox.classList.replace("bx-x", "bx-search");
-        }
-    });
+// Menambahkan event listener untuk klik pada ikon pencarian
+searchBox.addEventListener("click", () => {
+    navbar.classList.toggle("showInput"); // Toggle class "showInput" pada navbar untuk menampilkan input pencarian
+    if (navbar.classList.contains("showInput")) {
+        searchBox.classList.replace("bx-search", "bx-x"); // Mengganti ikon pencarian dengan ikon 'x' saat input aktif
+    } else {
+        searchBox.classList.replace("bx-x", "bx-search"); // Mengembalikan ikon 'x' ke ikon pencarian saat input ditutup
+    }
+});
 
-    let navLinks = document.querySelector(".nav-links");
-    let menuOpenBtn = document.querySelector(".navbar .bx-menu");
-    let menuCloseBtn = document.querySelector(".nav-links .bx-x");
+let navLinks = document.querySelector(".nav-links"); // Mengambil elemen nav-links yang berisi menu navigasi
+let menuOpenBtn = document.querySelector(".navbar .bx-menu"); // Mengambil ikon menu untuk membuka sidebar pada perangkat kecil
+let menuCloseBtn = document.querySelector(".nav-links .bx-x"); // Mengambil ikon 'x' untuk menutup sidebar
 
-    menuOpenBtn.onclick = function () {
-        navLinks.style.left = "0";
-    };
-    menuCloseBtn.onclick = function () {
-        navLinks.style.left = "-100%";
-    };
+// Menambahkan event untuk membuka sidebar saat ikon menu diklik
+menuOpenBtn.onclick = function () {
+    navLinks.style.left = "0"; // Mengubah posisi nav-links agar muncul dari sisi kiri layar
+};
 
-    let htmlcssArrow = document.querySelector(".htmlcss-arrow");
-    htmlcssArrow.onclick = function () {
-        navLinks.classList.toggle("show1");
-    };
+// Menambahkan event untuk menutup sidebar saat ikon 'x' diklik
+menuCloseBtn.onclick = function () {
+    navLinks.style.left = "-100%"; // Menggeser nav-links ke kiri layar untuk menyembunyikannya
+};
 
-    let moreArrow = document.querySelector(".more-arrow");
-    moreArrow.onclick = function () {
-        navLinks.classList.toggle("show2");
-    };
+let htmlcssArrow = document.querySelector(".htmlcss-arrow"); // Mendapatkan elemen panah submenu untuk fitur HTML/CSS
+htmlcssArrow.onclick = function () {
+    navLinks.classList.toggle("show1"); // Toggle class "show1" untuk menampilkan/menyembunyikan submenu HTML/CSS
+};
 
-    let jsArrow = document.querySelector(".js-arrow");
-    jsArrow.onclick = function () {
-        navLinks.classList.toggle("show3");
-    };
+let moreArrow = document.querySelector(".more-arrow"); // Mendapatkan elemen panah submenu untuk bagian "more"
+moreArrow.onclick = function () {
+    navLinks.classList.toggle("show2"); // Toggle class "show2" untuk menampilkan/menyembunyikan submenu "more"
+};
+
+let jsArrow = document.querySelector(".js-arrow"); // Mendapatkan elemen panah submenu untuk fitur JavaScript
+jsArrow.onclick = function () {
+    navLinks.classList.toggle("show3"); // Toggle class "show3" untuk menampilkan/menyembunyikan submenu JavaScript
+};
+
 </script>
 </body>
 </html>
