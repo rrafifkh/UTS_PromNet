@@ -1,164 +1,211 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Deklarasi tipe dokumen sebagai HTML5 -->
+<html lang="en"> <!-- Elemen HTML utama dengan bahasa yang diatur ke Inggris -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Colorful Age Calculator</title>
+  <meta charset="UTF-8"> <!-- Mengatur karakter encoding menjadi UTF-8 untuk mendukung karakter internasional -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mengatur viewport agar halaman responsif pada perangkat mobile -->
+  <title>Colorful Age Calculator</title> <!-- Judul halaman yang akan tampil di tab browser -->
+  <!-- Mengimpor font Poppins dari Google Fonts untuk digunakan dalam desain -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <style>
-/* Mengatur dasar */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  margin: 0; /* Menghilangkan margin default dari semua elemen */
+  padding: 0; /* Menghilangkan padding default dari semua elemen */
+  box-sizing: border-box; /* Mengatur box model agar padding dan border tidak menambah ukuran elemen */
+  font-family: 'Poppins', sans-serif; /* Mengatur font utama halaman ke Poppins */
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #f0e5d8, #f9d6d2, #fde2e4); /* Background gradasi lembut */
+  display: flex; /* Menggunakan Flexbox untuk mengatur tata letak halaman */
+  align-items: center; /* Memposisikan konten secara vertikal di tengah */
+  justify-content: center; /* Memposisikan konten secara horizontal di tengah */
+  height: 100vh; /* Mengatur tinggi halaman sebesar 100% dari viewport */
+  background: linear-gradient(135deg, #f0e5d8, #f9d6d2, #fde2e4); /* Menambahkan latar belakang gradien warna */
 }
 
-/* Container utama */
+.back-button {
+  position: absolute; /* Mengeluarkan tombol kembali dari alur normal */
+  top: 20px; /* Mengatur jarak tombol dari atas */
+  left: 20px; /* Mengatur jarak tombol dari kiri */
+  padding: 10px 20px; /* Memberikan padding pada tombol */
+  background: linear-gradient(135deg, #52b2cf, #f28b81); /* Latar belakang gradien pada tombol */
+  color: white; /* Mengatur warna teks pada tombol */
+  border: none; /* Menghilangkan border default */
+  border-radius: 8px; /* Membuat sudut tombol menjadi melengkung */
+  cursor: pointer; /* Mengubah kursor menjadi pointer saat di atas tombol */
+  font-size: 1rem; /* Mengatur ukuran font tombol */
+  font-weight: 500; /* Ketebalan font */
+  text-decoration: none; /* Menghilangkan dekorasi teks (garis bawah) */
+  transition: all 0.3s ease; /* Menambahkan transisi halus untuk perubahan properti */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada tombol */
+}
+
+.back-button:hover {
+  background: linear-gradient(135deg, #f28b81, #f8b500); /* Mengubah warna latar belakang saat di-hover */
+  transform: translateY(-2px); /* Mengangkat tombol sedikit ke atas saat di-hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Menambahkan bayangan tambahan saat di-hover */
+}
+
 .container {
-  text-align: center;
-  background-color: #ffffff;
-  padding: 30px 20px;
-  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 15px;
-  width: 350px;
-  position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  text-align: center; /* Menyatukan teks ke tengah dalam kontainer */
+  background-color: #ffffff; /* Mengatur latar belakang kontainer menjadi putih */
+  padding: 30px 20px; /* Memberikan padding di dalam kontainer */
+  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.15); /* Menambahkan bayangan untuk kontainer */
+  border-radius: 15px; /* Membuat sudut kontainer menjadi melengkung */
+  width: 400px; /* Lebar kontainer */
+  position: relative; /* Mengatur posisi relatif untuk kontainer */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Memberikan border tipis transparan */
+  transition: transform 0.2s; /* Menambahkan transisi untuk efek perbesar saat di-hover */
 }
 
 .container:hover {
-  transform: scale(1.03);
+  transform: scale(1.03); /* Sedikit memperbesar kontainer saat di-hover */
 }
 
-/* Judul dan garis hias */
 .vintage-title {
-  font-size: 2.2rem;
-  color: #555273;
-  margin-bottom: 20px;
-  position: relative;
-  font-weight: 600;
+  font-size: 2.2rem; /* Ukuran font judul */
+  color: #555273; /* Warna teks judul */
+  margin-bottom: 20px; /* Jarak bawah judul */
+  position: relative; /* Mengatur posisi relatif */
+  font-weight: 600; /* Ketebalan font judul */
 }
 
 .vintage-title::after {
-  position: absolute;
-  top: 50%;
-  left: -15px;
-  right: -15px;
-  height: 2px;
-  background: linear-gradient(90deg, #f28b81, #f8b500, #52b2cf);
-  opacity: 0.8;
+  position: absolute; /* Mengatur pseudo-elemen secara absolut di dalam judul */
+  top: 50%; /* Posisi di tengah secara vertikal */
+  left: -15px; /* Jarak dari sisi kiri */
+  right: -15px; /* Jarak dari sisi kanan */
+  height: 2px; /* Tinggi garis bawah */
+  background: linear-gradient(90deg, #f28b81, #f8b500, #52b2cf); /* Gradien untuk garis bawah judul */
+  opacity: 0.8; /* Transparansi garis */
 }
 
 p {
-  color: #737373;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 15px;
+  color: #737373; /* Warna teks paragraf */
+  font-size: 1rem; /* Ukuran font */
+  font-weight: 500; /* Ketebalan font */
+  margin-bottom: 15px; /* Jarak bawah */
 }
 
 input[type="date"] {
-  padding: 10px;
-  font-size: 1rem;
-  margin: 10px 0;
-  width: 100%;
-  border: 2px solid #d4a5a5;
-  border-radius: 8px;
-  background-color: #fafafa;
-  outline: none;
-  transition: all 0.3s;
+  padding: 10px; /* Padding di dalam input */
+  font-size: 1rem; /* Ukuran font input */
+  margin: 10px 0; /* Jarak atas dan bawah */
+  width: 100%; /* Lebar penuh dalam kontainer */
+  border: 2px solid #d4a5a5; /* Border input */
+  border-radius: 8px; /* Membuat sudut input melengkung */
+  background-color: #fafafa; /* Latar belakang input */
+  outline: none; /* Menghilangkan outline saat fokus */
+  transition: all 0.3s; /* Transisi untuk efek fokus */
 }
 
 input[type="date"]:focus {
-  border-color: #52b2cf;
+  border-color: #52b2cf; /* Mengubah warna border saat input difokuskan */
 }
 
 button {
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #52b2cf, #f28b81);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background 0.3s;
+  padding: 12px 24px; /* Padding dalam tombol */
+  background: linear-gradient(135deg, #52b2cf, #f28b81); /* Latar belakang gradien untuk tombol */
+  color: white; /* Warna teks putih */
+  border: none; /* Menghilangkan border */
+  border-radius: 8px; /* Membulatkan sudut */
+  cursor: pointer; /* Mengubah kursor menjadi pointer */
+  font-size: 1rem; /* Ukuran font */
+  font-weight: 500; /* Ketebalan font */
+  transition: background 0.3s; /* Transisi perubahan warna saat di-hover */
 }
 
 button:hover {
-  background: linear-gradient(135deg, #f28b81, #f8b500);
+  background: linear-gradient(135deg, #f28b81, #f8b500); /* Mengubah warna gradien saat di-hover */
 }
 
 #result {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  color: #555273;
-  font-style: italic;
+  margin-top: 20px; /* Jarak dari elemen sebelumnya */
+  font-size: 1.1rem; /* Ukuran font hasil */
+  color: #555273; /* Warna teks */
+  line-height: 1.6; /* Jarak antar baris */
 }
 
-/* Efek bayangan lembut pada container */
+.time-details {
+  margin-top: 15px; /* Jarak atas */
+  padding: 15px; /* Padding dalam kontainer */
+  background: #f8f8f8; /* Latar belakang */
+  border-radius: 8px; /* Membulatkan sudut */
+  font-size: 0.9rem; /* Ukuran font */
+  color: #666; /* Warna teks */
+}
+
 .container::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
-  box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 0.04);
-  pointer-events: none;
+  content: ''; /* Membuat pseudo-elemen sebelum kontainer */
+  position: absolute; /* Posisi absolut dalam kontainer */
+  top: -8px; /* Jarak dari atas */
+  left: -8px; /* Jarak dari kiri */
+  right: -8px; /* Jarak dari kanan */
+  bottom: -8px; /* Jarak dari bawah */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Border tipis transparan */
+  border-radius: 20px; /* Membulatkan sudut */
+  box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 0.04); /* Bayangan dalam */
+  pointer-events: none; /* Nonaktifkan interaksi */
 }
-
 </style>
 <body>
+  <a href="landingPage.html" class="back-button"><</a> <!-- Tombol untuk kembali ke halaman utama -->
+  
   <div class="container">
-    <h1 class="vintage-title">Age Calculator</h1>
-    <p>Masukkan tanggal lahir untuk mengkalkulasikan umur:</p>
+    <h1 class="vintage-title">Age Calculator</h1> <!-- Judul utama halaman -->
+    <p>Masukkan tanggal lahir untuk mengkalkulasikan umur:</p> <!-- Instruksi singkat -->
 
-    <input type="date" id="dob">
-    <button onclick="calculateAge()">Kalkulasikan Umur</button>
+    <input type="date" id="dob"> <!-- Input untuk tanggal lahir -->
+    <button onclick="calculateAge()">Kalkulasikan Umur</button> <!-- Tombol yang akan menjalankan fungsi kalkulasi umur -->
 
-    <div id="result"></div>
+    <div id="result"></div> <!-- Div untuk menampilkan hasil umur dalam tahun, bulan, dan hari -->
+    <div id="timeResult" class="time-details"></div> <!-- Div untuk menampilkan hasil umur dalam jam, menit, dan detik -->
   </div>
 
   <script>
-    function calculateAge() {
-      const dobInput = document.getElementById("dob").value;
-      const resultDiv = document.getElementById("result");
+    function calculateAge() { // Fungsi untuk menghitung umur pengguna
+      const dobInput = document.getElementById("dob").value; // Mendapatkan nilai tanggal lahir dari input
+      const resultDiv = document.getElementById("result"); // Mengakses elemen result untuk menampilkan umur
+      const timeResultDiv = document.getElementById("timeResult"); // Mengakses elemen timeResult untuk menampilkan waktu total
 
-      if (!dobInput) {
-        resultDiv.innerHTML = "Mohon pilih tanggal lahir anda.";
-        return;
+      if (!dobInput) { // Memeriksa jika pengguna belum memilih tanggal
+        resultDiv.innerHTML = "Mohon pilih tanggal lahir anda."; // Menampilkan pesan error
+        return; // Menghentikan fungsi jika tanggal lahir belum dipilih
       }
 
-      const dob = new Date(dobInput);
-      const today = new Date();
+      const dob = new Date(dobInput); // Mengubah tanggal lahir dari input ke dalam format Date
+      const today = new Date(); // Mendapatkan tanggal hari ini
 
-      let ageYears = today.getFullYear() - dob.getFullYear();
-      let ageMonths = today.getMonth() - dob.getMonth();
-      let ageDays = today.getDate() - dob.getDate();
+      // Menghitung umur dalam tahun, bulan, dan hari
+      let ageYears = today.getFullYear() - dob.getFullYear(); // Menghitung selisih tahun
+      let ageMonths = today.getMonth() - dob.getMonth(); // Menghitung selisih bulan
+      let ageDays = today.getDate() - dob.getDate(); // Menghitung selisih hari
 
-      if (ageDays < 0) {
+      if (ageDays < 0) { // Jika hari negatif, kurangi 1 bulan dan tambahkan hari pada bulan sebelumnya
         ageMonths--;
-        ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); // Tambahkan jumlah hari bulan sebelumnya
       }
-      if (ageMonths < 0) {
+      if (ageMonths < 0) { // Jika bulan negatif, kurangi 1 tahun dan tambahkan 12 bulan
         ageYears--;
         ageMonths += 12;
       }
 
-      resultDiv.innerHTML = `Umur kamu ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`;
+      // Menghitung total waktu hidup dalam jam, menit, dan detik
+      const timeDiff = today - dob; // Menghitung selisih waktu dalam milidetik
+      const seconds = Math.floor(timeDiff / 1000); // Mengubah waktu menjadi detik
+      const minutes = Math.floor(seconds / 60); // Mengubah waktu menjadi menit
+      const hours = Math.floor(minutes / 60); // Mengubah waktu menjadi jam
+      
+      const remainingMinutes = minutes % 60; // Sisa menit setelah dikonversi ke jam
+      const remainingSeconds = seconds % 60; // Sisa detik setelah dikonversi ke menit
+
+      resultDiv.innerHTML = `Umur kamu ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`; // Menampilkan umur dalam tahun, bulan, dan hari
+      timeResultDiv.innerHTML = `Total waktu hidup:<br>
+        ${hours.toLocaleString()} jam ${remainingMinutes} menit ${remainingSeconds} detik`; // Menampilkan total waktu dalam jam, menit, dan detik
     }
+
+    // Update waktu setiap detik agar tampilan waktu hidup terus diperbarui
+    setInterval(calculateAge, 1000);
   </script>
 </body>
 </html>
