@@ -1,238 +1,268 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Deklarasi tipe dokumen HTML5 -->
+<html lang="en"> <!-- Elemen HTML utama, dengan atribut bahasa diatur ke Inggris -->
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Colorful Calculator</title>
-    <!-- Mengimpor font Poppins -->
+    <meta charset="UTF-8" /> <!-- Mengatur karakter encoding ke UTF-8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Mengoptimalkan kompatibilitas untuk Internet Explorer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Mengatur viewport agar responsif di perangkat mobile -->
+    <title>Colorful Calculator</title> <!-- Judul halaman yang muncul di tab browser -->
+    <!-- Link untuk mengimpor font Poppins dari Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    * { 
+      margin: 0; /* Menghilangkan margin default */
+      padding: 0; /* Menghilangkan padding default */
+      box-sizing: border-box; /* Mengatur box model agar padding/border tidak menambah ukuran elemen */
+      font-family: 'Poppins', sans-serif; /* Mengatur font halaman ke Poppins */
     }
     
     body {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      height: 100vh; /* Mengatur tinggi halaman sebesar 100% dari tinggi viewport */
+      display: flex; /* Menggunakan Flexbox untuk pengaturan layout */
+      align-items: center; /* Menyelaraskan konten secara vertikal di tengah */
+      justify-content: center; /* Menyelaraskan konten secara horizontal di tengah */
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4); /* Menambahkan latar belakang gradien */
     }
     
+    .back-button {
+      position: absolute; /* Menempatkan tombol ini secara absolut di dalam body */
+      top: 20px; /* Mengatur jarak dari atas sebesar 20px */
+      left: 20px; /* Mengatur jarak dari kiri sebesar 20px */
+      padding: 10px 20px; /* Memberikan padding dalam tombol */
+      background: linear-gradient(135deg, #ffe6e6, #51fff3); /* Memberikan latar belakang gradien */
+      color: white; /* Mengatur warna teks menjadi putih */
+      border: none; /* Menghilangkan border default */
+      border-radius: 8px; /* Membuat sudut tombol menjadi membulat */
+      cursor: pointer; /* Mengubah cursor menjadi tangan saat dihover */
+      font-size: 1rem; /* Mengatur ukuran font sebesar 1rem */
+      font-weight: 500; /* Mengatur ketebalan font */
+      text-decoration: none; /* Menghilangkan dekorasi teks */
+      transition: all 0.3s ease; /* Menambahkan transisi halus untuk animasi */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Memberikan bayangan pada tombol */
+    }
+
+    .back-button:hover {
+      background: linear-gradient(135deg, #ff786c, #ffffff); /* Ubah latar belakang saat tombol dihover */
+      transform: translateY(-2px); /* Mengangkat tombol sedikit ke atas */
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Memberikan bayangan tambahan */
+    }
+
     .container {
-      max-width: 300px;
-      width: 100%;
-      border-radius: 15px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      max-width: 300px; /* Lebar maksimal container 300px */
+      width: 100%; /* Lebar container 100% dari elemen induk */
+      border-radius: 15px; /* Membulatkan sudut kontainer */
+      padding: 20px; /* Menambahkan padding di dalam kontainer */
+      background: rgba(255, 255, 255, 0.1); /* Memberikan latar belakang putih transparan */
+      backdrop-filter: blur(10px); /* Memberikan efek blur pada latar belakang */
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Memberikan bayangan pada kontainer */
+      border: 2px solid rgba(255, 255, 255, 0.2); /* Menambahkan border semi transparan */
     }
     
     .display {
-      height: 80px;
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      text-align: right;
-      margin-bottom: 15px;
-      font-size: 28px;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 10px;
-      font-weight: 500;
+      height: 80px; /* Tinggi elemen display */
+      width: 100%; /* Lebar display 100% dari elemen induk */
+      border: none; /* Menghilangkan border default */
+      border-radius: 10px; /* Membulatkan sudut display */
+      text-align: right; /* Mengatur teks rata kanan */
+      margin-bottom: 15px; /* Jarak bawah display sebesar 15px */
+      font-size: 28px; /* Ukuran font pada display */
+      color: #fff; /* Warna teks pada display putih */
+      background: rgba(0, 0, 0, 0.2); /* Latar belakang hitam transparan */
+      padding: 10px; /* Padding pada elemen display */
+      font-weight: 500; /* Ketebalan font teks */
     }
     
     .buttons {
-      display: grid;
-      grid-gap: 10px;
-      grid-template-columns: repeat(4, 1fr);
+      display: grid; /* Menggunakan grid untuk tata letak tombol */
+      grid-gap: 10px; /* Jarak antar tombol */
+      grid-template-columns: repeat(4, 1fr); /* Membagi grid menjadi 4 kolom dengan lebar sama */
     }
     
     .buttons button {
-      padding: 15px;
-      border-radius: 10px;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
-      font-weight: 500;
+      padding: 15px; /* Padding di dalam tombol */
+      border-radius: 10px; /* Membulatkan sudut tombol */
+      border: none; /* Menghilangkan border default */
+      font-size: 20px; /* Mengatur ukuran font */
+      cursor: pointer; /* Mengubah cursor menjadi pointer saat dihover */
+      background: rgba(255, 255, 255, 0.1); /* Latar belakang putih transparan */
+      color: #fff; /* Warna teks putih */
+      transition: all 0.3s ease; /* Animasi transisi saat tombol dihover */
+      backdrop-filter: blur(5px); /* Efek blur pada tombol */
+      font-weight: 500; /* Ketebalan font */
     }
     
     .buttons button:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.2); /* Mengubah warna latar belakang saat tombol dihover */
+      transform: translateY(-2px); /* Menggeser tombol ke atas */
     }
     
     .buttons button:active {
-      transform: scale(0.95);
+      transform: scale(0.95); /* Efek tombol mengecil saat ditekan */
     }
     
     .operator {
-      background: rgba(255, 255, 255, 0.2) !important;
-      font-weight: 600 !important;
+      background: rgba(255, 255, 255, 0.2) !important; /* Latar belakang operator */
+      font-weight: 600 !important; /* Menegaskan ketebalan font untuk operator */
     }
     
     .history-container {
-      display: none;
-      margin-top: 20px;
-      max-height: 100px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 10px;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 14px;
+      display: none; /* Tersembunyi secara default */
+      margin-top: 20px; /* Memberikan jarak atas sebesar 20px */
+      max-height: 100px; /* Tinggi maksimal kontainer history */
+      overflow-y: auto; /* Scroll jika konten melebihi tinggi maksimal */
+      background: rgba(0, 0, 0, 0.2); /* Latar belakang hitam transparan */
+      padding: 10px; /* Padding dalam kontainer history */
+      border-radius: 10px; /* Membulatkan sudut kontainer */
+      color: #fff; /* Warna teks putih */
+      font-size: 14px; /* Ukuran font teks */
     }
     
     .history-container ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+      list-style: none; /* Menghilangkan bullet list */
+      padding: 0; /* Menghapus padding */
+      margin: 0; /* Menghapus margin */
     }
     
     .history-container ul li {
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 5px 0; /* Padding atas bawah list item */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Border bawah transparan */
     }
     
     .reset-history-btn {
-      display: none;
-      margin-top: 10px;
-      padding: 10px;
-      width: 100%;
-      font-size: 16px;
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      transition: all 0.3s;
-      font-weight: 500;
+      display: none; /* Tersembunyi secara default */
+      margin-top: 10px; /* Memberikan jarak atas */
+      padding: 10px; /* Padding tombol */
+      width: 100%; /* Lebar penuh tombol */
+      font-size: 16px; /* Ukuran font */
+      cursor: pointer; /* Mengubah cursor menjadi pointer */
+      background: rgba(255, 255, 255, 0.1); /* Latar belakang transparan */
+      color: #fff; /* Warna teks putih */
+      border: none; /* Menghapus border */
+      border-radius: 10px; /* Membulatkan sudut */
+      transition: all 0.3s; /* Transisi tombol saat dihover */
+      font-weight: 500; /* Ketebalan font */
     }
     
     .reset-history-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.2); /* Mengubah warna tombol saat dihover */
     }
 
     /* Custom scrollbar untuk history */
     .history-container::-webkit-scrollbar {
-      width: 6px;
+      width: 6px; /* Lebar scrollbar */
     }
     
     .history-container::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1); /* Latar belakang scrollbar track */
+      border-radius: 3px; /* Membulatkan sudut */
     }
     
     .history-container::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.3); /* Warna scrollbar thumb */
+      border-radius: 3px; /* Membulatkan sudut */
     }
   </style>
   <body>
+    <a href="landingPage.html" class="back-button"><</a> <!-- Tombol kembali ke halaman sebelumnya -->
     <div class="container">
-      <h1 style="text-align: center;">Kalkulator</h1>
-      <input type="text" class="display" readonly />
+      <h1 style="text-align: center;">Kalkulator</h1> <!-- Judul -->
+      <input type="text" class="display" readonly /> <!-- Display kalkulator -->
 
-      <div class="buttons">
+      <div class="buttons"> <!-- Bagian tombol -->
+        <!-- Tombol operator dan angka -->
         <button class="operator" data-value="AC">AC</button>
         <button class="operator" data-value="DEL">DEL</button>
         <button class="operator" data-value="%">%</button>
         <button class="operator" data-value="/">/</button>
 
+        <!-- Tombol angka 7-9 dan operator '*' -->
         <button data-value="7">7</button>
         <button data-value="8">8</button>
         <button data-value="9">9</button>
         <button class="operator" data-value="*">*</button>
 
+        <!-- Tombol angka 4-6 dan operator '-' -->
         <button data-value="4">4</button>
         <button data-value="5">5</button>
         <button data-value="6">6</button>
         <button class="operator" data-value="-">-</button>
 
+        <!-- Tombol angka 1-3 dan operator '+' -->
         <button data-value="1">1</button>
         <button data-value="2">2</button>
         <button data-value="3">3</button>
         <button class="operator" data-value="+">+</button>
 
+        <!-- Tombol angka 0 dan 00, serta '.' dan '=' -->
         <button data-value="0">0</button>
         <button data-value="00">00</button>
         <button data-value=".">.</button>
         <button class="operator" data-value="=">=</button>
       </div>
 
-      <div class="history-container">
+      <div class="history-container"> <!-- Kontainer untuk history perhitungan -->
         <ul class="history-list">
-          <!-- Calculation history will appear here -->
+          <!-- Riwayat perhitungan ditampilkan di sini -->
         </ul>
       </div>
-      <button class="reset-history-btn">Reset History</button>
+      <button class="reset-history-btn">Reset History</button> <!-- Tombol untuk menghapus history -->
     </div>
 
     <script>
-      const display = document.querySelector(".display");
-      const buttons = document.querySelectorAll("button");
+      const display = document.querySelector(".display"); /* Mendapatkan elemen display */
+      const buttons = document.querySelectorAll("button"); /* Mendapatkan semua tombol */
       const historyContainer = document.querySelector(".history-container");
-      const historyList = document.querySelector(".history-list");
-      const resetHistoryBtn = document.querySelector(".reset-history-btn");
-      const specialChars = ["%", "*", "/", "-", "+", "="];
-      let output = "";
+      const historyList = document.querySelector(".history-list"); /* Kontainer daftar history */
+      const resetHistoryBtn = document.querySelector(".reset-history-btn"); /* Tombol reset history */
+      const specialChars = ["%", "*", "/", "-", "+", "="]; /* Daftar karakter operator */
+      let output = ""; /* Variabel untuk menyimpan hasil sementara */
 
       const calculate = (btnValue) => {
         display.focus();
         if (btnValue === "=" && output !== "") {
           try {
             const result = eval(output.replace("%", "/100"));
-            addToHistory(`${output} = ${result}`);
+            addToHistory(`${output} = ${result}`); /* Menambah perhitungan ke history */
             output = result.toString();
           } catch {
-            output = "Error";
+            output = "Error"; /* Tampilkan 'Error' jika terjadi kesalahan */
           }
         } else if (btnValue === "AC") {
-          output = "";
+          output = ""; /* Menghapus semua input */
         } else if (btnValue === "DEL") {
-          output = output.toString().slice(0, -1);
+          output = output.toString().slice(0, -1); /* Menghapus karakter terakhir */
         } else {
           if (output === "" && specialChars.includes(btnValue)) return;
           output += btnValue;
         }
-        display.value = output;
+        display.value = output; /* Tampilkan output */
       };
 
-      const addToHistory = (calculation) => {
-        historyContainer.style.display = "block";
-        resetHistoryBtn.style.display = "block";
+      const addToHistory = (calculation) => { // Mendefinisikan fungsi addToHistory dengan parameter "calculation" untuk menambahkan hasil perhitungan ke dalam riwayat
+        historyContainer.style.display = "block"; // Menampilkan elemen historyContainer (awalnya disembunyikan)
+        resetHistoryBtn.style.display = "block"; // Menampilkan tombol reset history (awalnya disembunyikan)
 
-        const historyItem = document.createElement("li");
-        historyItem.textContent = calculation;
-        historyList.appendChild(historyItem);
+        const historyItem = document.createElement("li"); // Membuat elemen <li> baru yang akan menjadi item riwayat perhitungan
+        historyItem.textContent = calculation; // Mengisi teks dalam elemen <li> dengan nilai "calculation" (hasil perhitungan)
+        historyList.appendChild(historyItem); // Menambahkan elemen <li> yang baru dibuat ke dalam elemen <ul> dengan class "history-list"
 
-        historyContainer.scrollTop = historyContainer.scrollHeight;
-      };
+        historyContainer.scrollTop = historyContainer.scrollHeight; // Mengatur posisi scroll pada historyContainer agar selalu menunjukkan item terbaru (scroll ke bawah)
+}; // Akhir dari fungsi addToHistory
 
-      const resetHistory = () => {
-        historyList.innerHTML = "";
+
+      const resetHistory = () => { /* Fungsi untuk menghapus semua history */
+        historyList.innerHTML = ""; /* Menghapus semua item di dalam history list */
         historyContainer.style.display = "none";
         resetHistoryBtn.style.display = "none";
         display.value = "";
         output = "";
       };
 
-      buttons.forEach((button) => {
-        button.addEventListener("click", (e) => calculate(e.target.dataset.value));
+      buttons.forEach((button) => { /* Menambahkan event listener klik pada setiap tombol */
+        button.addEventListener("click", (e) => calculate(e.target.dataset.value)); /* Memanggil fungsi kalkulasi */
       });
 
-      resetHistoryBtn.addEventListener("click", resetHistory);
+      resetHistoryBtn.addEventListener("click", resetHistory); /* Event klik untuk tombol reset history */
     </script>
   </body>
 </html>
