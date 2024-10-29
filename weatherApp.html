@@ -1,366 +1,202 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8">
-    <title>Aplikasi Cuaca</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
-      @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', monospace;
-      }
-      body {
-        background: #e3f2fd;
-      }
-      h1 {
-        background: #00796b;
-        font-size: 1.75rem;
-        text-align: center;
-        padding: 18px 0;
-        color: #ffffff;
-      }
-      .container {
-        display: flex;
-        gap: 35px;
-        padding: 30px;
-      }
-      .weather-input {
-        width: 550px;
-      }
-      .weather-input input {
-        height: 46px;
-        width: 100%;
-        outline: none;
-        font-size: 1.07rem;
-        padding: 0 17px;
-        margin: 10px 0 20px 0;
-        border-radius: 4px;
-        border: 1px solid #0288d1;
-      }
-      .weather-input input:focus {
-        padding: 0 16px;
-        border: 2px solid #00796b;
-      }
-      .weather-input .separator {
-        height: 1px;
-        width: 100%;
-        margin: 25px 0;
-        background: #0288d1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .weather-input .separator::before{
-        content: "atau";
-        color: #00796b;
-        font-size: 1.18rem;
-        padding: 0 15px;
-        margin-top: -4px;
-        background: #e3f2fd;
-      }
-      .weather-input button {
-        width: 100%;
-        padding: 10px 0;
-        cursor: pointer;
-        outline: none;
-        border: none;
-        border-radius: 4px;
-        font-size: 1rem;
-        color: #ffffff;
-        background: #0288d1;
-        transition: 0.2s ease;
-      }
-      .weather-input .search-btn:hover {
-        background: #01579b;
-      }
-      .weather-input .location-btn {
-        background: #4fc3f7;
-      }
-      .weather-input .location-btn:hover {
-        background: #0288d1;
-      }
-      .weather-data {
-        width: 100%;
-      }
-      .weather-data .current-weather {
-        color: #ffffff;
-        background: #00796b;
-        border-radius: 5px;
-        padding: 20px 70px 20px 20px;
-        display: flex;
-        justify-content: space-between;
-      }
-      .current-weather h2 {
-        font-weight: 700;
-        font-size: 1.7rem;
-      }
-      .weather-data h6 {
-        margin-top: 12px;
-        font-size: 1rem;
-        font-weight: 500;
-      }
-      .current-weather .icon {
-        text-align: center;
-      }
-      .current-weather .icon img {
-        max-width: 120px;
-        margin-top: -15px;
-        filter: grayscale(0%);
-      }
-      .current-weather .icon h6 {
-        margin-top: -10px;
-        text-transform: capitalize;
-      }
-      .days-forecast h2 {
-        margin: 20px 0;
-        font-size: 1.5rem;
-        color: #00796b;
-      }
-      .days-forecast .weather-cards {
-        display: flex;
-        gap: 20px;
-      }
-      .weather-cards .card {
-        color: #ffffff;
-        padding: 18px 16px;
-        list-style: none;
-        width: calc(100% / 5);
-        background: #0288d1;
-        border-radius: 5px;
-      }
-      .weather-cards .card h3 {
-        font-size: 1.3rem;
-        font-weight: 600;
-      }
-      .weather-cards .card img {
-        max-width: 70px;
-        margin: 5px 0 -12px 0;
-        filter: grayscale(0%);
-      }
-      /* Media queries tetap sama */
-      @media (max-width: 1400px) {
-        .weather-data .current-weather {
-          padding: 20px;
-        }
-        .weather-cards {
-          flex-wrap: wrap;
-        }
-        .weather-cards .card {
-          width: calc(100% / 4 - 15px);
-        }
-      }
-      @media (max-width: 1200px) {
-        .weather-cards .card {
-          width: calc(100% / 3 - 15px);
-        }
-      }
-      @media (max-width: 950px) {
-        .weather-input {
-          width: 450px;
-        }
-        .weather-cards .card {
-          width: calc(100% / 2 - 10px);
-        }
-      }
-      @media (max-width: 750px) {
-        h1 {
-          font-size: 1.45rem;
-          padding: 16px 0;
-        }
-        .container {
-          flex-wrap: wrap;
-          padding: 15px;
-        }
-        .weather-input {
-          width: 100%;
-        }
-        .weather-data h2 {
-          font-size: 1.35rem;
-        }
-      }
+<head>
+  <meta charset="utf-8">
+  <title>Weather App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * {
+    margin: 0; /* Mengatur semua elemen agar tidak ada margin */
+    padding: 0; /* Mengatur semua elemen agar tidak ada padding */
+    box-sizing: border-box; /* Mengatur box model agar padding dan border termasuk dalam ukuran elemen */
+    font-family: 'Poppins', sans-serif; /* Mengatur font default menjadi Poppins */
+}
+body {
+    background: #e0f7fa; /* Warna latar belakang body */
+    display: flex; /* Mengatur tampilan sebagai flex container */
+    align-items: center; /* Memusatkan elemen secara vertikal */
+    justify-content: center; /* Memusatkan elemen secara horizontal */
+    min-height: 100vh; /* Tinggi minimum body setinggi layar penuh */
+    color: #333; /* Warna teks default */
+}
+
+
+.container {
+    max-width: 500px; /* Lebar maksimum container */
+    padding: 20px; /* Memberikan padding pada container */
+    text-align: center; /* Teks rata tengah */
+    background-color: #ffffff; /* Warna latar belakang putih */
+    border-radius: 10px; /* Membuat sudut membulat */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Memberikan bayangan di bawah */
+}
+h1 {
+    font-size: 1.8rem; /* Ukuran teks besar */
+    margin-bottom: 15px; /* Memberikan jarak bawah */
+    color: #00796b; /* Warna teks hijau */
+}
+.input-group {
+    display: flex; /* Mengatur elemen input sebagai flex */
+    margin-bottom: 15px; /* Memberikan jarak bawah */
+}
+.input-group input {
+    width: 100%; /* Lebar penuh */
+    padding: 10px; /* Padding dalam input */
+    border: 1px solid #ddd; /* Border abu-abu */
+    border-radius: 5px; /* Membulatkan sudut */
+    font-size: 1rem; /* Ukuran font */
+    background-color: #f1f8e9; /* Warna latar hijau muda */
+}
+.input-group button {
+    padding: 10px 20px; /* Padding pada tombol */
+    background-color: #00796b; /* Warna latar hijau gelap */
+    border: none; /* Menghilangkan border */
+    color: #fff; /* Warna teks putih */
+    font-size: 1rem; /* Ukuran font */
+    cursor: pointer; /* Kursor pointer */
+    margin-left: 10px; /* Jarak kiri */
+    border-radius: 5px; /* Membuat sudut membulat */
+    transition: background-color 0.3s ease; /* Transisi warna saat dihover */
+}
+.input-group button:hover {
+    background-color: #004d40; /* Warna latar tombol saat dihover */
+}
+.weather-info {
+    margin-top: 20px; /* Jarak atas */
+    background-color: hsl(170, 100%, 43%); /* Warna latar hijau terang */
+    padding: 15px; /* Padding di dalam */
+    border-radius: 5px; /* Membulatkan sudut */
+    box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan dalam */
+}
+.weather-info h2 {
+    font-size: 1.4rem; /* Ukuran teks judul */
+    margin-bottom: 8px; /* Jarak bawah */
+    color: #004d40; /* Warna hijau gelap */
+}
+.weather-info p {
+    font-size: 1rem; /* Ukuran font isi */
+    color: #555; /* Warna abu-abu */
+}
+.back-button {
+    position: absolute; /* Posisi tombol absolut */
+    top: 20px; /* Jarak atas */
+    left: 20px; /* Jarak kiri */
+    padding: 10px 20px; /* Padding dalam tombol */
+    background: linear-gradient(135deg,#00ccaa, #64ffe5); /* Gradien warna hijau */
+    color: white; /* Warna teks putih */
+    border: none; /* Menghilangkan border */
+    border-radius: 8px; /* Membulatkan sudut */
+    cursor: pointer; /* Kursor pointer */
+    font-size: 1rem; /* Ukuran font */
+    font-weight: 500; /* Ketebalan font */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    transition: all 0.3s ease; /* Transisi halus */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan */
+}
+.back-button:hover {
+    background: linear-gradient(135deg, #ff786c, #ffffff); /* Gradien warna saat hover */
+    transform: translateY(-2px); /* Tombol sedikit naik */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Bayangan lebih tebal */
+}
+.weather-icon {
+    width: 100px; /* Lebar ikon cuaca */
+    height: 100px; /* Tinggi ikon cuaca */
+    margin: 10px auto; /* Margin atas dan bawah otomatis */
+}
+.weather-icon img {
+    width: 100%; /* Ikon memenuhi container */
+    height: 100%; /* Ikon memenuhi container */
+    object-fit: contain; /* Sesuaikan gambar */
+}
+.weather-description {
+    font-style: italic; /* Mengatur font menjadi miring */
+    color: #666; /* Warna teks abu-abu */
+    margin: 5px 0; /* Margin atas dan bawah */
+}
+
   </style>
-  
-  </head>
-  <body>
-    <h1>Aplikasi Prakiraan Cuaca</h1>
-    <div class="container">
-      <div class="weather-input">
-        <h3>Masukkan Nama Kota</h3>
-        <input class="city-input" type="text" placeholder="Contoh: Jakarta, Surabaya, Bandung">
-        <button class="search-btn">Cari</button>
-        <div class="separator"></div>
-        <button class="location-btn">Gunakan Lokasi Saat Ini</button>
-      </div>
-      <div class="weather-data">
-        <div class="current-weather">
-          <div class="details">
-            <h2>_______ ( ______ )</h2>
-            <h6>Suhu: __°C</h6>
-            <h6>Kecepatan Angin: __ M/D</h6>
-            <h6>Kelembaban: __%</h6>
-          </div>
-        </div>
-        <div class="days-forecast">
-          <h2>Prakiraan 5 Hari Kedepan</h2>
-          <ul class="weather-cards">
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Suhu: __°C</h6>
-              <h6>Angin: __ M/D</h6>
-              <h6>Kelembaban: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Suhu: __°C</h6>
-              <h6>Angin: __ M/D</h6>
-              <h6>Kelembaban: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Suhu: __°C</h6>
-              <h6>Angin: __ M/D</h6>
-              <h6>Kelembaban: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Suhu: __°C</h6>
-              <h6>Angin: __ M/D</h6>
-              <h6>Kelembaban: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Suhu: __°C</h6>
-              <h6>Angin: __ M/D</h6>
-              <h6>Kelembaban: __%</h6>
-            </li>
-          </ul>
-        </div>
-      </div>
+</head>
+<body>
+  <a href="landingPage.html" class="back-button"><</a><!-- Tombol kembali -->
+  <div class="container">
+    <h1>Weather App</h1> <!-- Judul utama aplikasi cuaca -->
+
+    <div class="input-group">
+        <input type="text" class="city-input" placeholder="Cari Kota"> <!-- Input teks untuk mencari nama kota -->
+        <button class="search-btn">Cari</button> <!-- Tombol untuk mencari informasi cuaca kota yang diinput -->
     </div>
-    <script>
-        const cityInput = document.querySelector(".city-input");
-        const searchButton = document.querySelector(".search-btn");
-        const locationButton = document.querySelector(".location-btn");
-        const currentWeatherDiv = document.querySelector(".current-weather");
-        const weatherCardsDiv = document.querySelector(".weather-cards");
 
-        const API_KEY = "6bc8f4cff1a0a9f7c480895c329de78e";
+    <div class="weather-info">
+        <h2>Kota: ______</h2> <!-- Tempat menampilkan nama kota yang dicari -->
+        
+        <div class="weather-icon">
+            <!-- Tempat untuk ikon cuaca, akan ditampilkan di sini -->
+        </div>
+        
+        <p class="weather-description">______</p> <!-- Tempat menampilkan deskripsi cuaca, misalnya 'Cerah' -->
+        <p>Suhu: __°C</p> <!-- Tempat menampilkan suhu kota -->
+        <p>Kecepatan Angin: __ m/d</p> <!-- Tempat menampilkan kecepatan angin -->
+        <p>Kelembaban: __%</p> <!-- Tempat menampilkan persentase kelembaban udara -->
+    </div>
+</div>
 
-        const createWeatherCard = (cityName, weatherItem, index) => {
-            if(index === 0) {
-                return `<div class="details">
-                            <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
-                            <h6>Suhu: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h6>
-                            <h6>Kecepatan Angin: ${weatherItem.wind.speed} M/D</h6>
-                            <h6>Kelembaban: ${weatherItem.main.humidity}%</h6>
-                        </div>
-                        <div class="icon">
-                            <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="ikon-cuaca">
-                            <h6>${translateWeatherDescription(weatherItem.weather[0].description)}</h6>
-                        </div>`;
-            } else {
-                return `<li class="card">
-                            <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
-                            <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="ikon-cuaca">
-                            <h6>Suhu: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h6>
-                            <h6>Angin: ${weatherItem.wind.speed} M/D</h6>
-                            <h6>Kelembaban: ${weatherItem.main.humidity}%</h6>
-                        </li>`;
-            }
-        }
+  <script>
+    const cityInput = document.querySelector(".city-input"); // Mendapatkan elemen input kota
+const searchButton = document.querySelector(".search-btn"); // Mendapatkan elemen tombol pencarian
+const weatherInfoDiv = document.querySelector(".weather-info"); // Mendapatkan elemen div untuk informasi cuaca
 
-        const translateWeatherDescription = (description) => {
-            const translations = {
-                'clear sky': 'Cerah',
-                'few clouds': 'Berawan Sebagian',
-                'scattered clouds': 'Berawan',
-                'broken clouds': 'Berawan Tebal',
-                'shower rain': 'Hujan Ringan',
-                'rain': 'Hujan',
-                'thunderstorm': 'Hujan Petir',
-                'snow': 'Salju',
-                'mist': 'Berkabut',
-                'overcast clouds': 'Berawan Penuh',
-                'light rain': 'Hujan Ringan',
-                'moderate rain': 'Hujan Sedang',
-                'heavy intensity rain': 'Hujan Lebat',
-                'very heavy rain': 'Hujan Sangat Lebat'
-            };
-            return translations[description.toLowerCase()] || description;
-        }
+const API_KEY = "6bc8f4cff1a0a9f7c480895c329de78e"; // Kunci API dari OpenWeatherMap untuk mengakses data cuaca
 
-        const getWeatherDetails = (cityName, latitude, longitude) => {
-            const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+const updateWeatherInfo = (cityName, temperature, windSpeed, humidity, weatherIcon, weatherDesc) => {
+    // Fungsi untuk memperbarui informasi cuaca di halaman
+    weatherInfoDiv.innerHTML = `
+        <h2>Kota: ${cityName}</h2>
+        <div class="weather-icon">
+            <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="Weather Icon">
+        </div>
+        <p class="weather-description">${weatherDesc}</p>
+        <p>Suhu: ${temperature.toFixed(1)}°C</p>
+        <p>Kecepatan Angin: ${windSpeed} m/d</p>
+        <p>Kelembaban: ${humidity}%</p>`;
+    // Mengisi elemen `weatherInfoDiv` dengan nama kota, suhu, kecepatan angin, kelembaban, ikon cuaca, dan deskripsi cuaca
+};
 
-            fetch(WEATHER_API_URL).then(response => response.json()).then(data => {
-                const uniqueForecastDays = [];
-                const fiveDaysForecast = data.list.filter(forecast => {
-                    const forecastDate = new Date(forecast.dt_txt).getDate();
-                    if (!uniqueForecastDays.includes(forecastDate)) {
-                        return uniqueForecastDays.push(forecastDate);
-                    }
-                });
+const getWeatherDetails = (cityName) => {
+    // Fungsi untuk mendapatkan data cuaca dari API berdasarkan nama kota
+    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}`; // URL API OpenWeatherMap dengan parameter nama kota dan kunci API
 
-                cityInput.value = "";
-                currentWeatherDiv.innerHTML = "";
-                weatherCardsDiv.innerHTML = "";
+    fetch(WEATHER_API_URL)
+        .then(response => response.json()) // Mengubah respons menjadi format JSON
+        .then(data => {
+            const temperature = data.main.temp - 273.15; // Mengonversi suhu dari Kelvin ke Celsius
+            const windSpeed = data.wind.speed; // Mengambil kecepatan angin
+            const humidity = data.main.humidity; // Mengambil kelembaban udara
+            const weatherIcon = data.weather[0].icon; // Mendapatkan kode ikon cuaca
+            const weatherDesc = data.weather[0].description; // Mendapatkan deskripsi cuaca
 
-                fiveDaysForecast.forEach((weatherItem, index) => {
-                    const html = createWeatherCard(cityName, weatherItem, index);
-                    if (index === 0) {
-                        currentWeatherDiv.insertAdjacentHTML("beforeend", html);
-                    } else {
-                        weatherCardsDiv.insertAdjacentHTML("beforeend", html);
-                    }
-                });        
-            }).catch(() => {
-                alert("Terjadi kesalahan saat mengambil data prakiraan cuaca!");
-            });
-        }
+            updateWeatherInfo(cityName, temperature, windSpeed, humidity, weatherIcon, weatherDesc); // Memperbarui tampilan informasi cuaca
+        })
+        .catch(() => {
+            alert("Terjadi kesalahan saat mengambil data cuaca!"); // Pesan kesalahan jika data gagal diambil
+        });
+};
 
-        const getCityCoordinates = () => {
-            const cityName = cityInput.value.trim();
-            if (cityName === "") return;
-            const GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
-            
-            fetch(GEOCODING_API_URL).then(response => response.json()).then(data => {
-                if (!data.length) return alert(`Koordinat tidak ditemukan untuk kota ${cityName}`);
-                const { lat, lon, name } = data[0];
-                getWeatherDetails(name, lat, lon);
-            }).catch(() => {
-                alert("Terjadi kesalahan saat mengambil koordinat!");
-            });
-        }
+searchButton.addEventListener("click", () => {
+    // Event listener untuk tombol cari cuaca
+    const cityName = cityInput.value.trim(); // Mengambil dan memangkas input kota dari user
+    if (cityName) { // Memastikan input tidak kosong
+        getWeatherDetails(cityName); // Memanggil fungsi untuk mengambil data cuaca
+        cityInput.value = ""; // Mengosongkan input setelah pencarian
+    }
+});
 
-        const getUserCoordinates = () => {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const { latitude, longitude } = position.coords;
-                    const REVERSE_GEOCODING_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
-                    fetch(REVERSE_GEOCODING_URL).then(response => response.json()).then(data => {
-                        const { name } = data[0];
-                        getWeatherDetails(name, latitude, longitude);
-                    }).catch(() => {
-                        alert("Terjadi kesalahan saat mengambil nama kota!");
-                    });
-                },
-                error => {
-                    if (error.code === error.PERMISSION_DENIED) {
-                        alert("Permintaan geolokasi ditolak. Mohon izinkan akses lokasi di browser Anda.");
-                    } else {
-                        alert("Terjadi kesalahan saat mengakses geolokasi.");
-                    }
-                });
-        }
+cityInput.addEventListener("keyup", (e) => {
+    // Event listener untuk mendeteksi tombol 'Enter' pada input
+    if (e.key === "Enter") {
+        searchButton.click(); // Mengklik tombol pencarian secara otomatis saat 'Enter' ditekan
+    }
+});
 
-        locationButton.addEventListener("click", getUserCoordinates);
-        searchButton.addEventListener("click", getCityCoordinates);
-        cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates());
-    </script>
-  </body>
+  </script>
+</body>
 </html>
