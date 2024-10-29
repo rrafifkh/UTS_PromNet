@@ -6,172 +6,441 @@
 <title>Colorful Stopwatch</title>
 <style>
     /* Mengimpor font Poppins */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-    body {
-        font-family: 'Poppins', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background: linear-gradient(135deg, #f093fb, #f5576c);
-        color: #333;
-        overflow: hidden;
+body {
+    font-family: 'Poppins', sans-serif; /* Mengatur font utama menjadi Poppins */
+    display: flex; /* Mengatur body sebagai flex container untuk memusatkan elemen */
+    justify-content: center; /* Memusatkan konten secara horizontal */
+    align-items: center; /* Memusatkan konten secara vertikal */
+    height: 100vh; /* Menjadikan tinggi body sesuai tinggi layar */
+    margin: 0; /* Menghilangkan margin default */
+    background: linear-gradient(135deg, #ffffff, #f5576c); /* Gradien warna latar */
+    color: #333; /* Warna teks utama */
+    overflow: hidden; /* Menghilangkan overflow */
+}
+
+/* Styling untuk elemen navigasi (nav) */
+nav { 
+    position: fixed; /* Memastikan nav tetap di posisi atas saat halaman di-scroll */
+    top: 0; /* Mengatur posisi nav di bagian atas halaman */
+    left: 0; /* Mengatur posisi nav di sisi kiri halaman */
+    width: 100%; /* Lebar nav menutupi seluruh lebar halaman */
+    height: 70px; /* Tinggi nav diatur sebesar 70px */
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Warna gradien latar belakang nav */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Memberi bayangan untuk efek kedalaman */
+    z-index: 99; /* Menempatkan nav di atas elemen lain dengan menaikkan tingkat z-index */
+}
+
+/* Styling untuk kontainer dalam navigasi */
+.navbar { 
+    height: 100%; /* Tinggi kontainer disamakan dengan tinggi nav */
+    max-width: 1250px; /* Lebar maksimal kontainer diatur agar responsif */
+    width: 100%; /* Lebar kontainer menyesuaikan dengan nav */
+    display: flex; /* Menggunakan flexbox untuk mengatur tata letak elemen di dalamnya */
+    align-items: center; /* Memposisikan elemen di tengah vertikal */
+    justify-content: space-between; /* Menyebarkan elemen di antara awal dan akhir kontainer */
+    margin: auto; /* Menengahkan kontainer secara horizontal */
+    padding: 0 50px; /* Menambahkan padding kiri dan kanan sebesar 50px */
+}
+
+/* Styling untuk logo dalam navbar */
+.navbar .logo a { 
+    font-size: 30px; /* Mengatur ukuran font logo */
+    color: #ffffff; /* Mengatur warna teks logo menjadi putih */
+    text-decoration: none; /* Menghilangkan garis bawah pada teks tautan */
+    font-weight: 600; /* Membuat teks lebih tebal */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Memberi bayangan pada teks untuk efek kedalaman */
+}
+
+/* Styling untuk tautan navigasi (nav-links) */
+.navbar .nav-links { 
+    line-height: 70px; /* Menetapkan tinggi garis agar teks berada di tengah secara vertikal */
+    height: 100%; /* Tinggi nav-links disamakan dengan kontainer navbar */
+}
+
+/* Mengatur tampilan elemen links */
+.navbar .links { 
+    display: flex; /* Menampilkan tautan dalam satu baris */
+}
+
+
+.navbar .links li {
+    position: relative; /* Menetapkan posisi relatif pada setiap item list agar elemen submenu dapat diposisikan secara absolut */
+    display: flex; /* Menyusun elemen di dalam item list secara horizontal */
+    align-items: center; /* Memposisikan konten di tengah secara vertikal */
+    justify-content: space-between; /* Menyebarkan elemen di dalam item list */
+    list-style: none; /* Menghilangkan gaya bullet default pada item list */
+    padding: 0 14px; /* Memberikan padding kiri dan kanan untuk ruang di sekitar elemen */
+}
+
+.navbar .links li a {
+    height: 100%; /* Menetapkan tinggi anchor (tautan) agar sesuai dengan tinggi item list */
+    text-decoration: none; /* Menghilangkan garis bawah pada teks tautan */
+    white-space: nowrap; /* Mencegah teks beralih ke baris baru */
+    color: #ffffff; /* Mengatur warna teks menjadi putih */
+    font-size: 15px; /* Mengatur ukuran font untuk tautan */
+    font-weight: 500; /* Menambah ketebalan font */
+    transition: all 0.3s ease; /* Menambahkan transisi halus untuk perubahan visual, seperti warna */
+}
+
+.navbar .links li a:hover {
+    color: #FFE66D; /* Mengubah warna teks saat tautan dihover */
+    text-shadow: 0 0 10px rgba(255, 230, 109, 0.5); /* Memberikan efek bayangan pada teks saat dihover */
+}
+
+.links li:hover .htmlcss-arrow,
+.links li:hover .js-arrow {
+    transform: rotate(180deg); /* Memutar ikon panah sebesar 180 derajat saat item list dihover */
+}
+
+.links li .sub-menu {
+    position: absolute; /* Menempatkan submenu secara absolut relatif terhadap item induknya */
+    top: 70px; /* Mengatur jarak submenu dari item induk di bagian atas */
+    left: 0; /* Menyelaraskan submenu ke kiri */
+    line-height: 40px; /* Mengatur tinggi baris untuk meningkatkan keterbacaan */
+    background: linear-gradient(45deg, #4ECDC4, #2AB7CA); /* Memberikan gradien pada latar belakang submenu */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Memberikan bayangan untuk efek kedalaman */
+    border-radius: 0 0 8px 8px; /* Membulatkan sudut bawah submenu */
+    display: none; /* Menyembunyikan submenu secara default */
+    z-index: 2; /* Mengatur urutan tumpukan agar submenu berada di depan elemen lain */
+}
+
+.links li:hover .htmlCss-sub-menu,
+.links li:hover .js-sub-menu {
+    display: block; /* Menampilkan submenu saat item list dihover */
+}
+
+.navbar .links li .sub-menu li {
+    padding: 0 22px; /* Memberikan padding kiri dan kanan pada setiap item submenu */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Garis bawah untuk memisahkan setiap item dalam submenu */
+}
+
+.navbar .links li .sub-menu a {
+    color: #ffffff; /* Mengatur warna teks submenu menjadi putih */
+    font-size: 15px; /* Mengatur ukuran font pada item submenu */
+    font-weight: 500; /* Menambah ketebalan font untuk keterbacaan */
+}
+
+.navbar .search-box {
+    position: relative; /* Menetapkan posisi relatif untuk kotak pencarian */
+    height: 40px; /* Mengatur tinggi kotak pencarian */
+    width: 40px; /* Mengatur lebar kotak pencarian */
+}
+
+.search-box i {
+    position: absolute; /* Menempatkan ikon secara absolut di dalam kotak pencarian */
+    height: 100%; /* Tinggi ikon sesuai dengan kotak pencarian */
+    width: 100%; /* Lebar ikon sesuai dengan kotak pencarian */
+    line-height: 40px; /* Mengatur ikon di tengah secara vertikal */
+    text-align: center; /* Mengatur ikon di tengah secara horizontal */
+    font-size: 22px; /* Ukuran font untuk ikon pencarian */
+    color: #FFE66D; /* Warna ikon */
+    font-weight: 600; /* Menambah ketebalan ikon */
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat dihover */
+    transition: all 0.3s ease; /* Menambahkan transisi halus pada ikon saat terjadi perubahan */
+}
+
+.search-box .input-box {
+    position: absolute; /* Menempatkan kotak input secara absolut dalam kotak pencarian */
+    right: calc(100% - 40px); /* Posisi input berada di sebelah kanan kotak pencarian */
+    top: 80px; /* Menempatkan input box di bawah kotak pencarian */
+    height: 60px; /* Tinggi input box */
+    width: 300px; /* Lebar input box */
+    background: linear-gradient(45deg, #FF6B6B, #FF9999); /* Gradien pada latar belakang input box */
+    border-radius: 10px; /* Membulatkan sudut input box */
+    opacity: 0; /* Membuat input box transparan secara default */
+    pointer-events: none; /* Mencegah interaksi dengan input box secara default */
+    transition: all 0.4s ease; /* Menambahkan transisi halus untuk animasi input box */
+}
+
+
+.navbar.showInput .search-box .input-box {
+    top: 65px; /* Menurunkan posisi input box agar terlihat lebih dekat dengan navbar saat ditampilkan */
+    opacity: 1; /* Menampilkan input box dengan mengatur opacity menjadi 1 */
+    pointer-events: auto; /* Mengaktifkan interaksi pada input box */
+}
+
+.search-box .input-box::before {
+    content: ''; /* Membuat elemen sebelum input box, tanpa teks */
+    position: absolute; /* Memposisikan elemen ini relatif terhadap input box */
+    height: 20px; /* Tinggi elemen dekoratif */
+    width: 20px; /* Lebar elemen dekoratif */
+    background: #FF6B6B; /* Warna latar belakang elemen dekoratif */
+    right: 10px; /* Jarak elemen ini dari sisi kanan input box */
+    top: -6px; /* Menempatkan elemen sedikit di atas input box */
+    transform: rotate(45deg); /* Memutar elemen 45 derajat untuk membentuk panah */
+}
+
+.search-box .input-box input {
+    position: absolute; /* Menempatkan input secara absolut dalam input box */
+    top: 50%; /* Memposisikan input di tengah vertikal */
+    left: 50%; /* Memposisikan input di tengah horizontal */
+    border-radius: 8px; /* Membuat sudut input menjadi melengkung */
+    transform: translate(-50%, -50%); /* Memposisikan input tepat di tengah */
+    height: 35px; /* Tinggi input */
+    width: 280px; /* Lebar input */
+    outline: none; /* Menghilangkan outline default */
+    padding: 0 15px; /* Memberikan padding dalam input untuk kenyamanan */
+    font-size: 16px; /* Ukuran font input */
+    border: none; /* Menghilangkan border input */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Memberikan bayangan lembut pada input untuk efek kedalaman */
+}
+
+.nav-links .sidebar-logo {
+    display: none; /* Menyembunyikan logo sidebar secara default */
+}
+
+.bx-menu {
+    display: none; /* Menyembunyikan ikon menu pada perangkat besar */
+}
+
+@media (max-width: 920px) {
+    .navbar {
+        max-width: 100%; /* Mengatur lebar navbar agar sesuai dengan lebar layar */
+        padding: 0 25px; /* Mengurangi padding navbar */
     }
-
-    .stopwatch-container {
-        text-align: center;
-        max-width: 400px;
-        width: 100%;
-        background-color: #fff;
-        padding: 20px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-        border-radius: 12px;
-        overflow: hidden;
+    .navbar .logo a {
+        font-size: 27px; /* Mengecilkan ukuran font logo */
     }
-
-    .timer {
-        font-size: 48px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #555;
-        transition: color 0.3s ease-in-out;
-        animation: pulse 1s infinite;
+    .navbar .links li {
+        padding: 0 10px; /* Mengurangi padding di dalam item link */
     }
-
-    @keyframes pulse {
-        0%, 100% { color: #333; }
-        50% { color: #f5576c; }
+    .navbar .links li a {
+        font-size: 15px; /* Mengurangi ukuran font tautan */
     }
+}
 
-    .controls button {
-        background: linear-gradient(45deg, #42e695, #3bb2b8);
-        color: #fff;
-        border: none;
-        padding: 12px 24px;
-        margin: 5px;
-        border-radius: 25px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+@media (max-width: 800px) {
+    .bx-menu {
+        display: block; /* Menampilkan ikon menu pada perangkat kecil */
     }
-
-    .controls button:hover {
-        transform: scale(1.1);
-        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
+    .nav-links {
+        position: fixed; /* Menempatkan nav-links tetap saat di-scroll */
+        top: 0; /* Menempatkan nav-links di bagian atas layar */
+        left: -100%; /* Menggeser nav-links keluar dari tampilan */
+        max-width: 270px; /* Lebar maksimum nav-links */
+        background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Warna gradien latar belakang */
+        padding: 20px; /* Padding di dalam nav-links */
+        transition: all 0.5s ease; /* Transisi halus saat menampilkan nav-links */
+        z-index: 1000; /* Memastikan nav-links berada di depan elemen lain */
     }
-
-    .controls button:active {
-        transform: scale(0.95);
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    .sidebar-logo {
+        display: flex; /* Menampilkan logo sidebar dan membuatnya dalam satu baris */
+        align-items: center; /* Memposisikan elemen secara vertikal di tengah */
+        justify-content: space-between; /* Memberi ruang antara logo dan ikon tutup */
     }
-
-    .laps {
-        margin-top: 20px;
-        text-align: left;
-        max-height: 150px;
-        overflow-y: auto;
+    .sidebar-logo .logo-name,
+    .sidebar-logo i,
+    .bx-menu {
+        color: #ff0000; /* Warna merah untuk teks logo dan ikon */
     }
+    .links {
+        display: block; /* Menampilkan item link dalam satu kolom */
+        margin-top: 20px; /* Memberi jarak atas pada daftar link */
+    }
+    .links li {
+        display: block; /* Setiap tautan ditampilkan dalam satu baris */
+    }
+    .links li .sub-menu {
+        position: relative; /* Menempatkan submenu relatif terhadap item induknya */
+        top: 0; /* Menyelaraskan submenu dengan item induk */
+        display: none; /* Menyembunyikan submenu secara default */
+    }
+}
 
-    .lap {
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 8px;
-        background: linear-gradient(45deg, #f093fb, #f5576c);
-        color: #fff;
-        font-weight: 500;
+@media (max-width: 370px) {
+    .nav-links {
+        max-width: 100%; /* Menyesuaikan lebar nav-links dengan lebar layar pada perangkat kecil */
+    }
+}
+
+.back-button {
+    position: absolute; /* Mengatur tombol kembali di posisi absolut */
+    top: 20px; /* Posisi 20px dari atas */
+    left: 20px; /* Posisi 20px dari kiri */
+    padding: 10px 20px; /* Menambahkan padding tombol */
+    background: linear-gradient(135deg,#f5576c, #f093fb); /* Gradien warna tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border tombol */
+    border-radius: 8px; /* Sudut tombol melengkung */
+    cursor: pointer; /* Menampilkan kursor pointer saat hover */
+    font-size: 1rem; /* Ukuran font tombol */
+    font-weight: 500; /* Ketebalan font */
+    text-decoration: none; /* Menghilangkan garis bawah teks */
+    transition: all 0.3s ease; /* Efek transisi saat dihover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan tombol */
+}
+
+.back-button:hover {
+    background: linear-gradient(135deg, #ff786c, #ffffff); /* Warna gradien saat hover */
+    transform: translateY(-2px); /* Tombol sedikit naik saat hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Bayangan lebih besar saat hover */
+}
+
+.stopwatch-container {
+    text-align: center; /* Teks dalam kontainer berhenti di tengah */
+    max-width: 400px; /* Lebar maksimal kontainer */
+    width: 100%; /* Lebar penuh sesuai container */
+    background-color: #fff; /* Warna latar kontainer putih */
+    padding: 20px; /* Padding dalam kontainer */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Efek bayangan kontainer */
+    border-radius: 12px; /* Sudut kontainer melengkung */
+    overflow: hidden; /* Menghilangkan overflow */
+}
+
+.timer {
+    font-size: 48px; /* Ukuran teks besar untuk timer */
+    font-weight: 600; /* Ketebalan teks timer */
+    margin-bottom: 20px; /* Jarak bawah timer */
+    color: #555; /* Warna teks timer */
+    transition: color 0.3s ease-in-out; /* Transisi warna */
+    animation: pulse 1s infinite; /* Efek animasi berdenyut */
+}
+
+@keyframes pulse {
+    0%, 100% { color: #333; } /* Warna timer awal dan akhir */
+    50% { color: #f5576c; } /* Warna timer di tengah */
+}
+
+.controls button {
+    background: linear-gradient(45deg, #42e695, #3bb2b8); /* Gradien warna tombol kontrol */
+    color: #fff; /* Warna teks tombol */
+    border: none; /* Menghilangkan border */
+    padding: 12px 24px; /* Padding tombol */
+    margin: 5px; /* Margin antar tombol */
+    border-radius: 25px; /* Sudut tombol membulat */
+    font-size: 16px; /* Ukuran font tombol */
+    cursor: pointer; /* Kursor pointer saat hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi hover */
+}
+
+.controls button:hover {
+    transform: scale(1.1); /* Memperbesar tombol saat hover */
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+}
+
+.controls button:active {
+    transform: scale(0.95); /* Memperkecil tombol saat ditekan */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Bayangan lebih kecil saat ditekan */
+}
+
+.laps {
+    margin-top: 20px; /* Jarak atas dari konten lain */
+    text-align: left; /* Rata kiri untuk daftar lap */
+    max-height: 150px; /* Batas tinggi untuk scroll */
+    overflow-y: auto; /* Scroll vertikal jika tinggi melebihi batas */
+}
+
+.lap {
+    padding: 10px; /* Padding dalam tiap lap */
+    margin: 5px 0; /* Margin antar lap */
+    border-radius: 8px; /* Sudut membulat */
+    background: linear-gradient(45deg, #f093fb, #f5576c); /* Gradien warna lap */
+    color: #fff; /* Warna teks lap */
+    font-weight: 500; /* Ketebalan teks lap */
+    opacity: 0; /* Opasitas awal */
+    transform: translateY(-10px); /* Posisi awal sedikit naik */
+    animation: fadeIn 0.5s forwards; /* Efek animasi fade in */
+}
+
+@keyframes fadeIn {
+    0% {
         opacity: 0;
-        transform: translateY(-10px);
-        animation: fadeIn 0.5s forwards;
+        transform: translateY(-10px); /* Posisi awal efek fade */
     }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Posisi akhir fade */
+    }
+}
 
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
 </style>
 </head>
 <body>
 
+<a href="landingPage.html" class="back-button"><</a><!-- Tombol kembali -->
+
 <div class="stopwatch-container">
-    <div class="timer" id="timer">00:00:00.00</div>
+    <h1>Stopwatch</h1> <!-- Menampilkan judul 'Stopwatch' -->
+    <div class="timer" id="timer">00:00:00.00</div> <!-- Tempat tampilan waktu stopwatch -->
     <div class="controls">
-        <button onclick="startStopwatch()">Start</button>
-        <button onclick="lapStopwatch()">Lap</button>
-        <button onclick="resetStopwatch()">Reset</button>
+        <button onclick="startStopwatch()">Start</button> <!-- Tombol untuk memulai stopwatch, memanggil fungsi startStopwatch() -->
+        <button onclick="lapStopwatch()">Lap</button> <!-- Tombol untuk menambah lap waktu, memanggil fungsi lapStopwatch() -->
+        <button onclick="resetStopwatch()">Reset</button> <!-- Tombol untuk mereset stopwatch, memanggil fungsi resetStopwatch() -->
     </div>
-    <div class="laps" id="laps"></div>
+    <div class="laps" id="laps"></div> <!-- Kontainer untuk menampilkan daftar lap -->
 </div>
 
+
 <script>
-    let startTime = 0;
-    let elapsedTime = 0;
-    let timerInterval;
-    let isRunning = false;
+let startTime = 0; // Menyimpan waktu awal ketika stopwatch dimulai
+let elapsedTime = 0; // Menghitung total waktu yang telah berlalu
+let timerInterval; // Menyimpan interval timer untuk menghentikan atau menjalankannya
+let isRunning = false; // Status untuk mengecek apakah stopwatch sedang berjalan
 
-    function timeToString(time) {
-        let diffInHrs = time / 3600000;
-        let hh = Math.floor(diffInHrs);
+function timeToString(time) {
+    // Fungsi mengonversi waktu dari milidetik ke format 'hh:mm:ss.ms'
+    let diffInHrs = time / 3600000; // Mengonversi milidetik ke jam
+    let hh = Math.floor(diffInHrs); // Menyimpan jam dalam format integer
 
-        let diffInMin = (diffInHrs - hh) * 60;
-        let mm = Math.floor(diffInMin);
+    let diffInMin = (diffInHrs - hh) * 60; // Sisa jam dikonversi ke menit
+    let mm = Math.floor(diffInMin); // Menyimpan menit dalam format integer
 
-        let diffInSec = (diffInMin - mm) * 60;
-        let ss = Math.floor(diffInSec);
+    let diffInSec = (diffInMin - mm) * 60; // Sisa menit dikonversi ke detik
+    let ss = Math.floor(diffInSec); // Menyimpan detik dalam format integer
 
-        let diffInMs = (diffInSec - ss) * 100;
-        let ms = Math.floor(diffInMs);
+    let diffInMs = (diffInSec - ss) * 100; // Sisa detik dikonversi ke milidetik
+    let ms = Math.floor(diffInMs); // Menyimpan milidetik dalam format integer
 
-        return (
-            (hh < 10 ? "0" : "") + hh + ":" +
-            (mm < 10 ? "0" : "") + mm + ":" +
-            (ss < 10 ? "0" : "") + ss + "." +
-            (ms < 10 ? "0" : "") + ms
-        );
+    return (
+        (hh < 10 ? "0" : "") + hh + ":" + // Menambahkan 0 jika jam kurang dari 10
+        (mm < 10 ? "0" : "") + mm + ":" + // Menambahkan 0 jika menit kurang dari 10
+        (ss < 10 ? "0" : "") + ss + "." + // Menambahkan 0 jika detik kurang dari 10
+        (ms < 10 ? "0" : "") + ms // Menambahkan 0 jika milidetik kurang dari 10
+    );
+}
+
+function print(txt) {
+    // Fungsi untuk menampilkan teks waktu ke elemen dengan id 'timer'
+    document.getElementById("timer").innerHTML = txt;
+}
+
+function startStopwatch() {
+    // Fungsi untuk memulai atau menghentikan stopwatch
+    if (!isRunning) {
+        startTime = Date.now() - elapsedTime; // Mengatur waktu awal dengan mengurangi waktu yang telah berlalu
+        timerInterval = setInterval(function printTime() {
+            elapsedTime = Date.now() - startTime; // Menghitung waktu yang telah berlalu
+            print(timeToString(elapsedTime)); // Menampilkan waktu yang diperbarui
+        }, 10); // Memperbarui setiap 10 milidetik
+        isRunning = true; // Mengubah status menjadi berjalan
+    } else {
+        clearInterval(timerInterval); // Menghentikan stopwatch
+        isRunning = false; // Mengubah status menjadi berhenti
     }
+}
 
-    function print(txt) {
-        document.getElementById("timer").innerHTML = txt;
-    }
+function resetStopwatch() {
+    // Fungsi untuk mereset stopwatch ke nol
+    clearInterval(timerInterval); // Menghentikan stopwatch
+    print("00:00:00.00"); // Menampilkan waktu nol
+    elapsedTime = 0; // Mengatur ulang waktu yang telah berlalu
+    isRunning = false; // Mengatur status menjadi berhenti
+    document.getElementById("laps").innerHTML = ""; // Menghapus daftar lap
+}
 
-    function startStopwatch() {
-        if (!isRunning) {
-            startTime = Date.now() - elapsedTime;
-            timerInterval = setInterval(function printTime() {
-                elapsedTime = Date.now() - startTime;
-                print(timeToString(elapsedTime));
-            }, 10);
-            isRunning = true;
-        } else {
-            clearInterval(timerInterval);
-            isRunning = false;
-        }
+function lapStopwatch() {
+    // Fungsi untuk menambahkan waktu lap jika stopwatch berjalan
+    if (isRunning) {
+        const lapTime = timeToString(elapsedTime); // Mendapatkan waktu lap dalam format string
+        const lapElement = document.createElement("div"); // Membuat elemen div baru untuk lap
+        lapElement.classList.add("lap"); // Menambahkan kelas 'lap' pada elemen baru
+        lapElement.innerText = `Lap ${document.querySelectorAll('.lap').length + 1}: ${lapTime}`; // Menambahkan teks lap
+        document.getElementById("laps").appendChild(lapElement); // Menambahkan lap ke dalam elemen 'laps'
     }
+}
 
-    function resetStopwatch() {
-        clearInterval(timerInterval);
-        print("00:00:00.00");
-        elapsedTime = 0;
-        isRunning = false;
-        document.getElementById("laps").innerHTML = "";
-    }
-
-    function lapStopwatch() {
-        if (isRunning) {
-            const lapTime = timeToString(elapsedTime);
-            const lapElement = document.createElement("div");
-            lapElement.classList.add("lap");
-            lapElement.innerText = `Lap ${document.querySelectorAll('.lap').length + 1}: ${lapTime}`;
-            document.getElementById("laps").appendChild(lapElement);
-        }
-    }
 </script>
 
 </body>
