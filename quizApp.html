@@ -1,716 +1,833 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis Multi-Tema</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            padding: 20px;
+<!DOCTYPE html> <!-- Deklarasi jenis dokumen HTML -->
+<html lang="en"> <!-- Awal dokumen HTML dengan bahasa 'en' -->
+<head> <!-- Bagian kepala dari HTML -->
+    <meta charset="UTF-8"> <!-- Set karakter encoding menjadi UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Untuk responsif terhadap perangkat -->
+    <title>Kuis Multi-Tema</title> <!-- Judul halaman yang tampil di tab browser -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> <!-- Link untuk memuat font Poppins dari Google Fonts -->
+    <style> /* Mulai CSS internal */
+        body { /* Gaya untuk elemen body */
+            font-family: 'Poppins', sans-serif; /* Menggunakan font Poppins */
+            display: flex; /* Mengatur body menjadi flex */
+            justify-content: center; /* Memusatkan konten secara horizontal */
+            align-items: center; /* Memusatkan konten secara vertikal */
+            min-height: 100vh; /* Tinggi minimal sesuai tinggi layar */
+            margin: 0; /* Menghilangkan margin */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); /* Gradien background */
+            background-size: 400% 400%; /* Ukuran background 4 kali lebih besar dari konten */
+            animation: gradient 15s ease infinite; /* Animasi gradien yang berubah warna */
+            padding: 20px; /* Padding di sekeliling konten */
         }
 
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+        @keyframes gradient { /* Definisi keyframes animasi untuk background gradien */
+            0% { background-position: 0% 50%; } /* Posisi awal background */
+            50% { background-position: 100% 50%; } /* Tengah background berpindah ke kanan */
+            100% { background-position: 0% 50%; } /* Background kembali ke awal */
         }
 
-        .quiz-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            padding: 40px;
-            width: 90%;
-            max-width: 700px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(8px);
-            animation: cardFloat 3s ease-in-out infinite;
+        .quiz-container { /* Gaya untuk kontainer kuis */
+            background: rgba(255, 255, 255, 0.95); /* Background semi-transparan */
+            border-radius: 24px; /* Sudut membulat pada kontainer */
+            padding: 40px; /* Padding di sekeliling kontainer */
+            width: 90%; /* Lebar maksimal 90% layar */
+            max-width: 700px; /* Lebar maksimal kontainer */
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); /* Bayangan kontainer */
+            border: 1px solid rgba(255, 255, 255, 0.18); /* Border semi-transparan */
+            backdrop-filter: blur(8px); /* Efek blur pada background */
+            animation: cardFloat 3s ease-in-out infinite; /* Animasi gerakan melayang */
         }
 
-        .welcome-screen {
-            text-align: center;
+        .welcome-screen { /* Gaya untuk layar sambutan */
+            text-align: center; /* Memusatkan teks */
         }
 
-        .welcome-screen h1 {
-            color: #2d3748;
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .welcome-screen h1 { /* Gaya untuk judul selamat datang */
+            color: #2d3748; /* Warna teks */
+            font-size: 2.2rem; /* Ukuran font */
+            margin-bottom: 1.5rem; /* Jarak bawah */
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Gradien teks */
+            background-clip: standar; /* Kliping background standar */
+            -webkit-background-clip: text; /* Kliping background */
+            -webkit-text-fill-color: transparent; /* Mengisi teks dengan gradien */
         }
 
-        .name-input {
-            width: 100%;
-            max-width: 300px;
-            padding: 15px 25px;
-            margin: 25px 0;
-            border: 2px solid transparent;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .name-input { /* Gaya untuk input nama */
+            width: 100%; /* Lebar penuh */
+            max-width: 300px; /* Lebar maksimal input */
+            padding: 15px 25px; /* Padding dalam input */
+            margin: 25px 0; /* Margin vertikal */
+            border: 2px solid transparent; /* Border transparan */
+            border-radius: 15px; /* Sudut membulat */
+            font-size: 1rem; /* Ukuran font */
+            font-family: 'Poppins', sans-serif; /* Font yang digunakan */
+            transition: all 0.3s ease; /* Transisi animasi */
+            background: rgba(255, 255, 255, 0.9); /* Background semi-transparan */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Bayangan input */
         }
 
-        .name-input:focus {
-            outline: none;
-            border-color: #4ECDC4;
-            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
-            transform: translateY(-2px);
+        .name-input:focus { /* Gaya saat input nama terfokus */
+            outline: none; /* Menghilangkan outline */
+            border-color: #4ECDC4; /* Border warna cyan */
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3); /* Bayangan lebih besar */
+            transform: translateY(-2px); /* Efek elevasi saat fokus */
         }
 
-        .theme-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+        .theme-container { /* Gaya untuk kontainer tema */
+            display: grid; /* Menggunakan grid */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid responsif */
+            gap: 20px; /* Jarak antar tema */
+            margin: 30px 0; /* Margin vertikal */
         }
 
-        .theme-button {
-            padding: 20px 30px;
-            border: none;
-            border-radius: 16px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .theme-button { /* Gaya untuk tombol tema */
+            padding: 20px 30px; /* Padding dalam tombol */
+            border: none; /* Menghilangkan border */
+            border-radius: 16px; /* Sudut membulat */
+            font-family: 'Poppins', sans-serif; /* Font yang digunakan */
+            font-size: 1rem; /* Ukuran font */
+            font-weight: 500; /* Ketebalan font */
+            cursor: pointer; /* Ganti kursor saat hover */
+            transition: all 0.3s ease; /* Transisi animasi */
+            color: white; /* Warna teks */
+            text-align: left; /* Teks rata kiri */
+            display: flex; /* Layout flex */
+            align-items: center; /* Teks sejajar vertikal */
+            justify-content: space-between; /* Spasi antara konten */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Bayangan tombol */
         }
 
-        .theme-button::after {
-            content: '→';
-            font-size: 1.2em;
-            transition: transform 0.3s ease;
+        .theme-button::after { /* Gaya panah setelah tombol */
+            content: '→'; /* Teks panah */
+            font-size: 1.2em; /* Ukuran font panah */
+            transition: transform 0.3s ease; /* Transisi efek panah */
         }
 
-        .theme-button:hover::after {
-            transform: translateX(5px);
+        .theme-button:hover::after { /* Gaya panah saat hover */
+            transform: translateX(5px); /* Geser panah ke kanan */
         }
 
-        .theme-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        .theme-button:hover { /* Efek hover untuk tombol tema */
+            transform: translateY(-5px); /* Efek elevasi saat hover */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar */
         }
 
-        .theme-button.programming {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        .theme-button.programming { /* Gaya tema Pemrograman */
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53); /* Gradien oranye */
         }
 
-        .theme-button.sports {
-            background: linear-gradient(45deg, #4ECDC4, #45B7AF);
+        .theme-button.sports { /* Gaya tema Olahraga */
+            background: linear-gradient(45deg, #4ECDC4, #45B7AF); /* Gradien hijau-biru */
         }
 
-        .theme-button.animation {
-            background: linear-gradient(45deg, #FFE66D, #FFC371);
+        .theme-button.animation { /* Gaya tema Animasi */
+            background: linear-gradient(45deg, #FFE66D, #FFC371); /* Gradien kuning-oranye */
         }
 
-        .theme-button.astronomy {
-            background: linear-gradient(45deg, #6C63FF, #3F3D56);
+        .theme-button.astronomy { /* Gaya tema Astronomi */
+            background: linear-gradient(45deg, #6C63FF, #3F3D56); /* Gradien ungu-gelap */
         }
 
-        .theme-button.islam {
-            background: linear-gradient(45deg, #2ECC71, #27AE60);
+        .theme-button.islam { /* Gaya tema Islam */
+            background: linear-gradient(45deg, #2ECC71, #27AE60); /* Gradien hijau */
         }
 
-        .answer-container {
-            display: grid;
-            gap: 15px;
-            margin-top: 25px;
+        .theme-button.musik { /* Gaya tema Musik */
+            background: linear-gradient(45deg, #b0b0b0, #727272); /* Gradien abu-abu */
         }
 
-        .answer {
-            padding: 20px 25px;
-            border: 2px solid transparent;
-            border-radius: 16px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            text-align: left;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            background: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        .answer-container { /* Gaya kontainer jawaban */
+            display: grid; /* Menggunakan grid */
+            gap: 15px; /* Jarak antar jawaban */
+            margin-top: 25px; /* Margin atas */
         }
 
-        .answer:hover {
-            transform: translateX(5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        .answer { /* Gaya untuk tombol jawaban */
+            padding: 20px 25px; /* Padding dalam tombol */
+            border: 2px solid transparent; /* Border transparan */
+            border-radius: 16px; /* Sudut membulat */
+            font-size: 1rem; /* Ukuran font */
+            transition: all 0.3s ease; /* Transisi animasi */
+            text-align: left; /* Teks rata kiri */
+            font-weight: 500; /* Ketebalan font */
+            position: relative; /* Posisi relatif */
+            overflow: hidden; /* Sembunyikan overflow */
+            cursor: pointer; /* Kursor pointer */
+            background: white; /* Background putih */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Bayangan */
         }
 
-        .answer.correct {
-            background: linear-gradient(45deg, #00b09b, #96c93d);
-            color: white;
+        .answer:hover { /* Efek hover untuk jawaban */
+            transform: translateX(5px); /* Efek geser */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Bayangan lebih besar */
         }
 
-        .answer.incorrect {
-            background: linear-gradient(45deg, #ff5f6d, #ffc371);
-            color: white;
+        .answer.correct { /* Gaya jawaban benar */
+            background: linear-gradient(45deg, #00b09b, #96c93d); /* Gradien hijau */
+            color: white; /* Teks putih */
         }
 
-        .question-number {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #6B7280;
-            background: linear-gradient(45deg, #f3f4f6, #ffffff);
-            padding: 8px 20px;
-            border-radius: 30px;
-            display: inline-block;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        .answer.incorrect { /* Gaya jawaban salah */
+            background: linear-gradient(45deg, #ff5f6d, #ffc371); /* Gradien merah */
+            color: white; /* Teks putih */
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(to right, #f0f0f0, #e0e0e0);
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
+        .question-number { /* Gaya nomor pertanyaan */
+            font-size: 0.9rem; /* Ukuran font */
+            font-weight: 500; /* Ketebalan font */
+            color: #6B7280; /* Warna teks abu-abu */
+            background: linear-gradient(45deg, #f3f4f6, #ffffff); /* Gradien abu-putih */
+            padding: 8px 20px; /* Padding */
+            border-radius: 30px; /* Sudut membulat */
+            display: inline-block; /* Tampilan inline-block */
+            margin-bottom: 15px; /* Margin bawah */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Bayangan */
         }
 
-        .progress {
-            height: 100%;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            transition: width 0.4s ease;
-            border-radius: 10px;
-            width: 0%;
+        .progress-bar { /* Gaya progres bar */
+            width: 100%; /* Lebar penuh */
+            height: 8px; /* Tinggi progres bar */
+            background: linear-gradient(to right, #f0f0f0, #e0e0e0); /* Gradien background */
+            border-radius: 10px; /* Sudut membulat */
+            margin: 20px 0; /* Margin vertikal */
+            overflow: hidden; /* Sembunyikan overflow */
         }
 
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid rgba(0, 0, 0, 0.05);
+        .progress { /* Gaya indikator progres */
+            height: 100%; /* Tinggi penuh */
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Gradien indikator */
+            transition: width 0.4s ease; /* Transisi lebar */
+            border-radius: 10px; /* Sudut membulat */
+            width: 0%; /* Lebar awal 0% */
         }
 
-        #next-btn {
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            color: white;
-            padding: 12px 35px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .controls { /* Gaya kontrol */
+            display: flex; /* Menggunakan flex */
+            justify-content: space-between; /* Jarak antar elemen */
+            align-items: center; /* Sejajarkan vertikal */
+            margin-top: 30px; /* Margin atas */
+            padding-top: 20px; /* Padding atas */
+            border-top: 2px solid rgba(0, 0, 0, 0.05); /* Border atas */
         }
 
-        #next-btn:not(:disabled):hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        #next-btn { /* Gaya tombol lanjut */
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Gradien */
+            color: white; /* Warna teks */
+            padding: 12px 35px; /* Padding */
+            border: none; /* Tanpa border */
+            border-radius: 15px; /* Sudut membulat */
+            font-size: 1rem; /* Ukuran font */
+            font-weight: 500; /* Ketebalan font */
+            cursor: pointer; /* Kursor pointer */
+            transition: all 0.3s ease; /* Transisi animasi */
         }
 
-        #next-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        #next-btn:not(:disabled):hover { /* Gaya hover tombol lanjut */
+            transform: translateY(-3px); /* Efek elevasi */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Bayangan */
         }
 
-        #score {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #2d3748;
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #f7f7f7, #ffffff);
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        #next-btn:disabled { /* Gaya tombol lanjut saat dinonaktifkan */
+            opacity: 0.5; /* Mengurangi opasitas */
+            cursor: not-allowed; /* Kursor tidak diizinkan */
         }
 
-        .feedback {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 30px;
-            border-radius: 15px;
-            color: white;
-            font-weight: 500;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
+        #score { /* Gaya skor */
+            font-size: 1.1rem; /* Ukuran font */
+            font-weight: 600; /* Ketebalan font */
+            color: #2d3748; /* Warna teks */
+            padding: 10px 20px; /* Padding */
+            background: linear-gradient(45deg, #f7f7f7, #ffffff); /* Gradien background */
+            border-radius: 12px; /* Sudut membulat */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Bayangan */
         }
 
-        .feedback.show {
-            opacity: 1;
-            transform: translateY(0);
+        .feedback { /* Gaya feedback */
+            position: fixed; /* Posisi tetap */
+            top: 20px; /* Jarak dari atas */
+            right: 20px; /* Jarak dari kanan */
+            padding: 15px 30px; /* Padding */
+            border-radius: 15px; /* Sudut membulat */
+            color: white; /* Warna teks */
+            font-weight: 500; /* Ketebalan font */
+            opacity: 0; /* Tidak terlihat awalnya */
+            transform: translateY(-10px); /* Geser ke atas */
+            transition: all 0.3s ease; /* Transisi animasi */
         }
 
-        .feedback.correct {
-            background: linear-gradient(45deg, #00b09b, #96c93d);
-            box-shadow: 0 4px 15px rgba(0, 176, 155, 0.3);
+        .feedback.show { /* Gaya feedback tampil */
+            opacity: 1; /* Opasitas penuh */
+            transform: translateY(0); /* Geser ke posisi semula */
         }
 
-        .feedback.incorrect {
-            background: linear-gradient(45deg, #ff5f6d, #ffc371);
-            box-shadow: 0 4px 15px rgba(255, 95, 109, 0.3);
+        .feedback.correct { /* Gaya feedback benar */
+            background: linear-gradient(45deg, #00b09b, #96c93d); /* Gradien hijau */
+            box-shadow: 0 4px 15px rgba(0, 176, 155, 0.3); /* Bayangan */
         }
 
-        .result-container {
-            text-align: center;
-            padding: 20px;
+        .feedback.incorrect { /* Gaya feedback salah */
+            background: linear-gradient(45deg, #ff5f6d, #ffc371); /* Gradien merah */
+            box-shadow: 0 4px 15px rgba(255, 95, 109, 0.3); /* Bayangan */
         }
 
-        .result-container h2 {
-            color: #2d3748;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .result-container { /* Gaya kontainer hasil */
+            text-align: center; /* Pusat teks */
+            padding: 20px; /* Padding */
         }
 
-        .result-stats {
-            margin: 30px 0;
-            padding: 20px;
-            background: linear-gradient(45deg, #f7f7f7, #ffffff);
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        .result-container h2 { /* Gaya judul hasil */
+            color: #2d3748; /* Warna teks */
+            font-size: 2rem; /* Ukuran font */
+            margin-bottom: 20px; /* Margin bawah */
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4); /* Gradien teks */
+            background-clip: standar; /* Kliping background standar */
+            -webkit-background-clip: text; /* Kliping background */
+            -webkit-text-fill-color: transparent; /* Teks transparan */
         }
 
-        .stat-item {
-            margin: 15px 0;
-            font-size: 1.1rem;
-            color: #4a5568;
+        .result-stats { /* Gaya statistik hasil */
+            margin: 30px 0; /* Margin vertikal */
+            padding: 20px; /* Padding */
+            background: linear-gradient(45deg, #f7f7f7, #ffffff); /* Gradien background */
+            border-radius: 15px; /* Sudut membulat */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Bayangan */
         }
 
-        .theme-icon {
-            margin-right: 10px;
-            font-size: 1.2em;
+        .stat-item { /* Gaya item statistik */
+            margin: 15px 0; /* Margin vertikal */
+            font-size: 1.1rem; /* Ukuran font */
+            color: #4a5568; /* Warna teks abu-abu */
         }
 
-        @media (max-width: 600px) {
-            .quiz-container {
-                padding: 20px;
-            }
+        .theme-icon { /* Gaya ikon tema */
+            margin-right: 10px; /* Margin kanan */
+            font-size: 1.2em; /* Ukuran font */
+        }
 
-            .theme-button {
-                padding: 15px 20px;
-            }
+        @media (max-width: 600px) { /* Media query untuk layar kecil */
+            .quiz-container { padding: 20px; } /* Mengurangi padding */
+            .theme-button { padding: 15px 20px; } /* Mengurangi padding */
+            .welcome-screen h1 { font-size: 1.8rem; } /* Mengurangi ukuran font */
+        }
 
-            .welcome-screen h1 {
-                font-size: 1.8rem;
-            }
+        .notification { /* Gaya notifikasi */
+            display: none; /* Awalnya tidak tampil */
+            position: fixed; /* Posisi tetap */
+            top: 20px; /* Jarak dari atas */
+            left: 50%; /* Tepi kiri di tengah */
+            transform: translateX(-50%); /* Memusatkan */
+            background-color: #ff6b6b; /* Warna background */
+            color: white; /* Warna teks */
+            padding: 15px 30px; /* Padding */
+            border-radius: 10px; /* Sudut membulat */
+            font-size: 1rem; /* Ukuran font */
+            font-weight: 500; /* Ketebalan font */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Bayangan */
+            opacity: 0; /* Tidak terlihat awalnya */
+            transition: opacity 0.3s ease, transform 0.3s ease; /* Transisi animasi */
+        }
+
+        .notification.show { /* Gaya notifikasi saat tampil */
+            display: block; /* Tampil */
+            opacity: 1; /* Opasitas penuh */
+            transform: translate(-50%, 0); /* Posisikan */
+        }
+
+        .back-button { /* Gaya tombol kembali */
+            position: absolute; /* Posisi absolut */
+            top: 20px; /* Jarak dari atas */
+            left: 20px; /* Jarak dari kiri */
+            padding: 10px 20px; /* Padding */
+            background: linear-gradient(135deg,#f5576c, #f093fb); /* Gradien background */
+            color: white; /* Warna teks */
+            border: none; /* Tanpa border */
+            border-radius: 8px; /* Sudut membulat */
+            cursor: pointer; /* Kursor pointer */
+            font-size: 1rem; /* Ukuran font */
+            font-weight: 500; /* Ketebalan font */
+            text-decoration: none; /* Tanpa garis bawah */
+            transition: all 0.3s ease; /* Transisi animasi */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan */
+        }
+
+        .back-button:hover { /* Gaya hover tombol kembali */
+            background: linear-gradient(135deg, #ff786c, #ffffff); /* Gradien background */
+            transform: translateY(-2px); /* Elevasi */
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Bayangan lebih besar */
         }
     </style>
 </head>
-<body>
-    <div class="feedback" id="feedback"></div>
-    <div class="quiz-container" id="main-container">
-        <div class="welcome-screen" id="welcome-screen">
-            <h1>Selamat Datang di Kuis Multi-Tema</h1>
-            <input type="text" class="name-input" id="player-name" placeholder="Masukkan nama Anda" required>
-            <p>Pilih tema kuis yang ingin Anda ikuti:</p>
-            <div class="theme-container">
-                <button class="theme-button programming" onclick="startQuiz('programming')">
-                    <span><span class="theme-icon">💻</span> Pemrograman Internet</span>
+<body> <!-- Awal body HTML -->
+    <a href="landingPage.html" class="back-button" id="back-button"><</a> <!-- Tombol untuk kembali ke landingPage -->
+    <div class="feedback" id="feedback"></div> <!-- Area untuk menampilkan feedback jawaban -->
+    <div class="quiz-container" id="main-container"> <!-- Kontainer utama untuk kuis -->
+        <div class="welcome-screen" id="welcome-screen"> <!-- Layar sambutan -->
+            <h1>Selamat Datang di Kuis Multi-Tema</h1> <!-- Judul selamat datang -->
+            <input type="text" class="name-input" id="player-name" placeholder="Masukkan nama Anda" required> <!-- Input nama pemain -->
+            <p>Pilih tema kuis yang ingin Anda ikuti:</p> <!-- Petunjuk memilih tema -->
+            <div class="theme-container"> <!-- Kontainer untuk tema kuis -->
+                <button class="theme-button programming" onclick="startQuiz('programming')"> <!-- Tombol untuk tema Pemrograman -->
+                    <span><span class="theme-icon">💻</span> Pemrograman Internet</span> <!-- Label tema dengan ikon -->
                 </button>
-                <button class="theme-button sports" onclick="startQuiz('sports')">
+                <button class="theme-button sports" onclick="startQuiz('sports')"> <!-- Tombol untuk tema Olahraga -->
                     <span><span class="theme-icon">⚽</span> Olahraga</span>
                 </button>
-                <button class="theme-button animation" onclick="startQuiz('animation')">
+                <button class="theme-button animation" onclick="startQuiz('animation')"> <!-- Tombol untuk tema Animasi -->
                     <span><span class="theme-icon">🎬</span> Animasi</span>
                 </button>
-                <button class="theme-button astronomy" onclick="startQuiz('astronomy')">
+                <button class="theme-button astronomy" onclick="startQuiz('astronomy')"> <!-- Tombol untuk tema Astronomi -->
                     <span><span class="theme-icon">🌟</span> Astronomi</span>
                 </button>
-                <button class="theme-button islam" onclick="startQuiz('islam')">
+                <button class="theme-button islam" onclick="startQuiz('islam')"> <!-- Tombol untuk tema Islam -->
                     <span><span class="theme-icon">🕌</span> Agama Islam</span>
+                </button>
+                <button class="theme-button musik" onclick="startQuiz('musik')"> <!-- Tombol untuk tema Musik -->
+                    <span><span class="theme-icon">🎼</span> Musik</span>
                 </button>
             </div>
         </div>
 
-        <div id="quiz" style="display: none;">
-            <div class="header">
-                <div class="question-number" id="question-number">Pertanyaan 1 dari 10</div>
-                <div class="progress-bar">
-                    <div class="progress" id="progress"></div>
+        <div class="notification" id="name-notification"> <!-- Notifikasi untuk input nama -->
+            Silakan masukkan nama Anda sebelum memulai kuis.
+        </div>
+        
+        <div id="quiz" style="display: none;"> <!-- Kontainer untuk kuis, disembunyikan awalnya -->
+            <div class="header"> <!-- Header kuis -->
+                <div class="question-number" id="question-number">Pertanyaan 1 dari 10</div> <!-- Nomor pertanyaan -->
+                <div class="progress-bar"> <!-- Progres bar -->
+                    <div class="progress" id="progress"></div> <!-- Indikator progres -->
                 </div>
-                <h2 id="question">Pertanyaan akan muncul di sini</h2>
+                <h2 id="question">Pertanyaan akan muncul di sini</h2> <!-- Teks pertanyaan -->
             </div>
-            <div class="answer-container">
-                <button class="answer" id="a" onclick="answer('a')">A</button>
-                <button class="answer" id="b" onclick="answer('b')">B</button>
-                <button class="answer" id="c" onclick="answer('c')">C</button>
-                <button class="answer" id="d" onclick="answer('d')">D</button>
+            <div class="answer-container"> <!-- Kontainer jawaban -->
+                <button class="answer" id="a" onclick="answer('a')">A</button> <!-- Tombol jawaban A -->
+                <button class="answer" id="b" onclick="answer('b')">B</button> <!-- Tombol jawaban B -->
+                <button class="answer" id="c" onclick="answer('c')">C</button> <!-- Tombol jawaban C -->
+                <button class="answer" id="d" onclick="answer('d')">D</button> <!-- Tombol jawaban D -->
             </div>
-            <div class="controls">
-                <p id="score">Skor: 0</p>
-                <button id="next-btn" onclick="nextQuestion()" disabled>Lanjut →</button>
+            <div class="controls"> <!-- Kontrol bawah -->
+                <p id="score">Skor: 0</p> <!-- Tampilan skor -->
+                <button id="next-btn" onclick="nextQuestion()" disabled>Lanjut →</button> <!-- Tombol lanjut, dinonaktifkan awalnya -->
             </div>
         </div>
     </div>
+        
 
-    <script>
-        // Questions database organized by theme
-        const allQuestions = {
-    programming: [
+        <script>
+            // Database pertanyaan-pertanyaan sesuai tema
+            const allQuestions = {
+        programming: [
+            {
+                question: "Apa kepanjangan dari HTML?",
+                answers: { a: "HyperText Markup Language", b: "High-Level Text Management Language", c: "HyperTransfer Markup Language", d: "High-Level Text Markup Language" },
+                correct: "a"
+            },
+            {
+                question: "CSS digunakan untuk?",
+                answers: { a: "Membuat logika program", b: "Styling halaman web", c: "Mengatur database", d: "Membuat animasi 3D" },
+                correct: "b"
+            },
+            {
+                question: "JavaScript adalah bahasa pemrograman yang berjalan di?",
+                answers: { a: "Server side", b: "Client side", c: "Database", d: "Operating System" },
+                correct: "b"
+            },
+            {
+                question: "Tag HTML untuk membuat hyperlink adalah?",
+                answers: { a: "<link>", b: "<href>", c: "<a>", d: "<url>" },
+                correct: "c"
+            },
+            {
+                question: "Properti CSS untuk mengatur jarak antar elemen adalah?",
+                answers: { a: "spacing", b: "padding", c: "border-spacing", d: "margin" },
+                correct: "d"
+            },
+            {
+                question: "JavaScript dapat digunakan untuk?",
+                answers: { a: "Backend", b: "Frontend", c: "Backend dan Frontend", d: "Hanya untuk database" },
+                correct: "c"
+            },
+            {
+                question: "Sintaks dasar untuk mendeklarasikan variabel di JavaScript adalah?",
+                answers: { a: "let variabelName", b: "declare variabelName", c: "variable variabelName", d: "def variabelName" },
+                correct: "a"
+            },
+            {
+                question: "Bahasa pemrograman apa yang paling sering digunakan untuk pengembangan web front-end?",
+                answers: { a: "Python", b: "JavaScript", c: "Java", d: "PHP" },
+                correct: "b"
+            },
+            {
+                question: "Framework front-end yang populer adalah?",
+                answers: { a: "Django", b: "Spring", c: "React", d: "Flask" },
+                correct: "c"
+            },
+            {
+                question: "HTML digunakan untuk?",
+                answers: { a: "Menambahkan gaya ke halaman web", b: "Membuat struktur halaman web", c: "Menjalankan backend", d: "Mengatur database" },
+                correct: "b"
+            }
+        ],
+        sports: [
+            {
+                question: "Siapakah yang dikenal sebagai 'King of Football'?",
+                answers: { a: "Lionel Messi", b: "Cristiano Ronaldo", c: "Diego Maradona", d: "Pele" },
+                correct: "d"
+            },
+            {
+                question: "Berapa jumlah pemain dalam satu tim sepak bola?",
+                answers: { a: "10", b: "11", c: "12", d: "13" },
+                correct: "b"
+            },
+            {
+                question: "Di olahraga tenis, berapa poin yang diperlukan untuk memenangkan satu set?",
+                answers: { a: "4", b: "5", c: "6", d: "7" },
+                correct: "c"
+            },
+            {
+                question: "Negara manakah yang menjadi tuan rumah Olimpiade 2016?",
+                answers: { a: "Brasil", b: "Jepang", c: "Inggris", d: "Cina" },
+                correct: "a"
+            },
+            {
+                question: "Dalam olahraga basket, berapa poin yang didapat dari lemparan tiga angka?",
+                answers: { a: "2", b: "3", c: "4", d: "1" },
+                correct: "b"
+            },
+            {
+                question: "Apa warna jersey tim nasional sepak bola Brazil?",
+                answers: { a: "Merah", b: "Kuning", c: "Biru", d: "Hijau" },
+                correct: "b"
+            },
+            {
+                question: "Siapakah pelari tercepat di dunia?",
+                answers: { a: "Usain Bolt", b: "Tyson Gay", c: "Justin Gatlin", d: "Yohan Blake" },
+                correct: "a"
+            },
+            {
+                question: "Apa nama trofi yang diberikan kepada pemenang Piala Dunia FIFA?",
+                answers: { a: "Stanley Cup", b: "Vince Lombardi Trophy", c: "The World Cup Trophy", d: "Larry O'Brien Trophy" },
+                correct: "c"
+            },
+            {
+                question: "Olahraga renang gaya bebas dikenal juga dengan istilah?",
+                answers: { a: "Backstroke", b: "Breaststroke", c: "Freestyle", d: "Butterfly" },
+                correct: "c"
+            },
+            {
+                question: "Siapa pemain tenis dengan rekor Grand Slam terbanyak?",
+                answers: { a: "Roger Federer", b: "Rafael Nadal", c: "Novak Djokovic", d: "Pete Sampras" },
+                correct: "c"
+            }
+        ],
+        animation: [
+            {
+                question: "Film animasi pertama yang diproduksi oleh Walt Disney adalah?",
+                answers: { a: "Mickey Mouse", b: "Steamboat Willie", c: "Snow White and the Seven Dwarfs", d: "Cinderella" },
+                correct: "c"
+            },
+            {
+                question: "Apa nama film animasi yang menampilkan karakter mainan hidup?",
+                answers: { a: "Toy Story", b: "Cars", c: "Finding Nemo", d: "Shrek" },
+                correct: "a"
+            },
+            {
+                question: "Siapa yang menciptakan karakter Spongebob Squarepants?",
+                answers: { a: "Walt Disney", b: "Hayao Miyazaki", c: "Stephen Hillenburg", d: "John Lasseter" },
+                correct: "c"
+            },
+            {
+                question: "Studio mana yang memproduksi film Spirited Away?",
+                answers: { a: "Pixar", b: "Studio Ghibli", c: "DreamWorks", d: "Blue Sky" },
+                correct: "b"
+            },
+            {
+                question: "Karakter mana yang berteriak 'To infinity and beyond!'?",
+                answers: { a: "Woody", b: "Simba", c: "Buzz Lightyear", d: "Shrek" },
+                correct: "c"
+            },
+            {
+                question: "Film animasi 'The Lion King' mengambil inspirasi dari karya siapa?",
+                answers: { a: "Charles Dickens", b: "Shakespeare", c: "Homer", d: "Hans Christian Andersen" },
+                correct: "b"
+            },
+            {
+                question: "Animasi Jepang dikenal dengan istilah?",
+                answers: { a: "Cartoon", b: "Manga", c: "Anime", d: "Animation" },
+                correct: "c"
+            },
+            {
+                question: "Apa nama anjing dalam film animasi Up?",
+                answers: { a: "Duke", b: "Buddy", c: "Max", d: "Dug" },
+                correct: "d"
+            },
+            {
+                question: "Siapa pencipta karakter animasi Doraemon?",
+                answers: { a: "Osamu Tezuka", b: "Fujiko F. Fujio", c: "Hayao Miyazaki", d: "Masashi Kishimoto" },
+                correct: "b"
+            },
+            {
+                question: "Studio mana yang memproduksi 'Shrek'?",
+                answers: { a: "Disney", b: "Pixar", c: "DreamWorks", d: "Studio Ghibli" },
+                correct: "c"
+            }
+        ],
+        astronomy: [
+            {
+                question: "Planet terdekat dengan Matahari adalah?",
+                answers: { a: "Bumi", b: "Venus", c: "Merkurius", d: "Mars" },
+                correct: "c"
+            },
+            {
+                question: "Berapa banyak planet dalam tata surya kita?",
+                answers: { a: "7", b: "8", c: "9", d: "10" },
+                correct: "b"
+            },
+            {
+                question: "Galaksi kita dikenal dengan nama?",
+                answers: { a: "Milky Way", b: "Andromeda", c: "Whirlpool", d: "Triangulum" },
+                correct: "a"
+            },
+            {
+                question: "Apa nama planet terbesar di tata surya?",
+                answers: { a: "Bumi", b: "Mars", c: "Jupiter", d: "Saturnus" },
+                correct: "c"
+            },
+            {
+                question: "Matahari adalah contoh dari jenis bintang apa?",
+                answers: { a: "White Dwarf", b: "Red Giant", c: "Main Sequence Star", d: "Neutron Star" },
+                correct: "c"
+            },
+            {
+                question: "Berapa jumlah bulan yang dimiliki Bumi?",
+                answers: { a: "1", b: "2", c: "0", d: "3" },
+                correct: "a"
+            },
+            {
+                question: "Planet apa yang dikenal dengan 'Planet Merah'?",
+                answers: { a: "Mars", b: "Venus", c: "Merkurius", d: "Jupiter" },
+                correct: "a"
+            },
+            {
+                question: "Saturnus dikenal karena?",
+                answers: { a: "Atmosfernya yang beracun", b: "Ukuran yang besar", c: "Cincin-cincinnya", d: "Panasnya yang ekstrem" },
+                correct: "c"
+            },
+            {
+                question: "Apa objek terbesar di tata surya kita?",
+                answers: { a: "Jupiter", b: "Matahari", c: "Saturnus", d: "Bumi" },
+                correct: "b"
+            },
+            {
+                question: "Apa nama planet ketiga dari Matahari?",
+                answers: { a: "Mars", b: "Bumi", c: "Venus", d: "Jupiter" },
+                correct: "b"
+            }
+        ],
+        islam: [
+            {
+                question: "Hari raya besar umat Islam yang dirayakan dengan penyembelihan hewan adalah?",
+                answers: { a: "Idul Fitri", b: "Maulid Nabi", c: "Idul Adha", d: "Isra Miraj" },
+                correct: "c"
+            },
+            {
+                question: "Puasa di bulan Ramadan adalah rukun Islam ke-?",
+                answers: { a: "1", b: "2", c: "3", d: "4" },
+                correct: "c"
+            },
+            {
+                question: "Nabi Muhammad SAW dilahirkan di kota?",
+                answers: { a: "Madinah", b: "Mekkah", c: "Yathrib", d: "Taif" },
+                correct: "b"
+            },
+            {
+                question: "Al-Quran diturunkan secara berangsur-angsur selama?",
+                answers: { a: "13 tahun", b: "15 tahun", c: "23 tahun", d: "25 tahun" },
+                correct: "c"
+            },
+            {
+                question: "Salat lima waktu disebut juga dengan?",
+                answers: { a: "Salat Sunnah", b: "Salat Wajib", c: "Salat Jumat", d: "Salat Sunnat" },
+                correct: "b"
+            },
+            {
+                question: "Sebelum membaca Al-Quran, umat Islam dianjurkan untuk membaca?",
+                answers: { a: "Surah Al-Fatihah", b: "Basmalah", c: "Ayat Kursi", d: "Doa Qunut" },
+                correct: "b"
+            },
+            {
+                question: "Nabi terakhir yang diutus oleh Allah SWT adalah?",
+                answers: { a: "Nabi Isa AS", b: "Nabi Musa AS", c: "Nabi Muhammad SAW", d: "Nabi Ibrahim AS" },
+                correct: "c"
+            },
+            {
+                question: "Berapa jumlah rukun Islam?",
+                answers: { a: "4", b: "5", c: "6", d: "7" },
+                correct: "b"
+            },
+            {
+                question: "Dalam Islam, hari Jumat dianggap sebagai?",
+                answers: { a: "Hari biasa", b: "Hari raya mingguan", c: "Hari libur", d: "Hari amal" },
+                correct: "b"
+            },
+            {
+                question: "Siapakah malaikat yang menyampaikan wahyu kepada Nabi Muhammad SAW?",
+                answers: { a: "Mikail", b: "Israfil", c: "Izrail", d: "Jibril" },
+                correct: "d"
+            }
+        ],
+        musik: [
         {
-            question: "Apa kepanjangan dari HTML?",
-            answers: { a: "HyperText Markup Language", b: "High-Level Text Management Language", c: "HyperTransfer Markup Language", d: "High-Level Text Markup Language" },
+            question: "Siapakah komposer terkenal yang menciptakan simfoni ke-9?",
+            answers: { a: "Ludwig van Beethoven", b: "Wolfgang Amadeus Mozart", c: "Johann Sebastian Bach", d: "Frédéric Chopin" },
             correct: "a"
         },
         {
-            question: "CSS digunakan untuk?",
-            answers: { a: "Membuat logika program", b: "Styling halaman web", c: "Mengatur database", d: "Membuat animasi 3D" },
+            question: "Instrumen utama yang digunakan dalam jazz adalah?",
+            answers: { a: "Biola", b: "Saksofon", c: "Piano", d: "Flute" },
             correct: "b"
         },
         {
-            question: "JavaScript adalah bahasa pemrograman yang berjalan di?",
-            answers: { a: "Server side", b: "Client side", c: "Database", d: "Operating System" },
-            correct: "b"
-        },
-        {
-            question: "Tag HTML untuk membuat hyperlink adalah?",
-            answers: { a: "<link>", b: "<href>", c: "<a>", d: "<url>" },
+            question: "Genre musik yang terkenal dengan ritme cepat dan lirik yang dinyanyikan dalam gaya rap adalah?",
+            answers: { a: "Rock", b: "Pop", c: "Hip-hop", d: "Jazz" },
             correct: "c"
         },
         {
-            question: "Properti CSS untuk mengatur jarak antar elemen adalah?",
-            answers: { a: "spacing", b: "padding", c: "border-spacing", d: "margin" },
+            question: "Siapakah penyanyi pop terkenal yang dijuluki 'King of Pop'?",
+            answers: { a: "Elvis Presley", b: "Michael Jackson", c: "Freddie Mercury", d: "Prince" },
+            correct: "b"
+        },
+        {
+            question: "Not balok yang menggambarkan nada paling tinggi dalam tangga nada adalah?",
+            answers: { a: "Do", b: "Mi", c: "Sol", d: "Ti" },
             correct: "d"
         },
         {
-            question: "JavaScript dapat digunakan untuk?",
-            answers: { a: "Backend", b: "Frontend", c: "Backend dan Frontend", d: "Hanya untuk database" },
-            correct: "c"
-        },
-        {
-            question: "Sintaks dasar untuk mendeklarasikan variabel di JavaScript adalah?",
-            answers: { a: "let variabelName", b: "declare variabelName", c: "variable variabelName", d: "def variabelName" },
+            question: "Genre musik yang berasal dari Jamaika dan terkenal dengan ritme santai adalah?",
+            answers: { a: "Reggae", b: "Blues", c: "Rock", d: "Country" },
             correct: "a"
         },
         {
-            question: "Bahasa pemrograman apa yang paling sering digunakan untuk pengembangan web front-end?",
-            answers: { a: "Python", b: "JavaScript", c: "Java", d: "PHP" },
+            question: "Alat musik tiup dari kuningan yang sering digunakan dalam orkestra adalah?",
+            answers: { a: "Gitar", b: "Trompet", c: "Biola", d: "Piano" },
             correct: "b"
         },
         {
-            question: "Framework front-end yang populer adalah?",
-            answers: { a: "Django", b: "Spring", c: "React", d: "Flask" },
+            question: "Siapakah penyanyi yang terkenal dengan lagu 'Like a Virgin'?",
+            answers: { a: "Celine Dion", b: "Whitney Houston", c: "Madonna", d: "Beyoncé" },
             correct: "c"
         },
         {
-            question: "HTML digunakan untuk?",
-            answers: { a: "Menambahkan gaya ke halaman web", b: "Membuat struktur halaman web", c: "Menjalankan backend", d: "Mengatur database" },
-            correct: "b"
-        }
-    ],
-    sports: [
-        {
-            question: "Siapakah yang dikenal sebagai 'King of Football'?",
-            answers: { a: "Lionel Messi", b: "Cristiano Ronaldo", c: "Diego Maradona", d: "Pele" },
-            correct: "d"
-        },
-        {
-            question: "Berapa jumlah pemain dalam satu tim sepak bola?",
-            answers: { a: "10", b: "11", c: "12", d: "13" },
+            question: "Notasi musik yang menandakan tempo cepat adalah?",
+            answers: { a: "Largo", b: "Presto", c: "Andante", d: "Adagio" },
             correct: "b"
         },
         {
-            question: "Di olahraga tenis, berapa poin yang diperlukan untuk memenangkan satu set?",
-            answers: { a: "4", b: "5", c: "6", d: "7" },
-            correct: "c"
-        },
-        {
-            question: "Negara manakah yang menjadi tuan rumah Olimpiade 2016?",
-            answers: { a: "Brasil", b: "Jepang", c: "Inggris", d: "Cina" },
-            correct: "a"
-        },
-        {
-            question: "Dalam olahraga basket, berapa poin yang didapat dari lemparan tiga angka?",
-            answers: { a: "2", b: "3", c: "4", d: "1" },
-            correct: "b"
-        },
-        {
-            question: "Apa warna jersey tim nasional sepak bola Brazil?",
-            answers: { a: "Merah", b: "Kuning", c: "Biru", d: "Hijau" },
-            correct: "b"
-        },
-        {
-            question: "Siapakah pelari tercepat di dunia?",
-            answers: { a: "Usain Bolt", b: "Tyson Gay", c: "Justin Gatlin", d: "Yohan Blake" },
-            correct: "a"
-        },
-        {
-            question: "Apa nama trofi yang diberikan kepada pemenang Piala Dunia FIFA?",
-            answers: { a: "Stanley Cup", b: "Vince Lombardi Trophy", c: "The World Cup Trophy", d: "Larry O'Brien Trophy" },
-            correct: "c"
-        },
-        {
-            question: "Olahraga renang gaya bebas dikenal juga dengan istilah?",
-            answers: { a: "Backstroke", b: "Breaststroke", c: "Freestyle", d: "Butterfly" },
-            correct: "c"
-        },
-        {
-            question: "Siapa pemain tenis dengan rekor Grand Slam terbanyak?",
-            answers: { a: "Roger Federer", b: "Rafael Nadal", c: "Novak Djokovic", d: "Pete Sampras" },
+            question: "Alat musik yang memiliki tuts dan sering digunakan dalam musik klasik adalah?",
+            answers: { a: "Gitar", b: "Biola", c: "Piano", d: "Drum" },
             correct: "c"
         }
     ],
-    animation: [
-        {
-            question: "Film animasi pertama yang diproduksi oleh Walt Disney adalah?",
-            answers: { a: "Mickey Mouse", b: "Steamboat Willie", c: "Snow White and the Seven Dwarfs", d: "Cinderella" },
-            correct: "c"
-        },
-        {
-            question: "Apa nama film animasi yang menampilkan karakter mainan hidup?",
-            answers: { a: "Toy Story", b: "Cars", c: "Finding Nemo", d: "Shrek" },
-            correct: "a"
-        },
-        {
-            question: "Siapa yang menciptakan karakter Spongebob Squarepants?",
-            answers: { a: "Walt Disney", b: "Hayao Miyazaki", c: "Stephen Hillenburg", d: "John Lasseter" },
-            correct: "c"
-        },
-        {
-            question: "Studio mana yang memproduksi film Spirited Away?",
-            answers: { a: "Pixar", b: "Studio Ghibli", c: "DreamWorks", d: "Blue Sky" },
-            correct: "b"
-        },
-        {
-            question: "Karakter mana yang berteriak 'To infinity and beyond!'?",
-            answers: { a: "Woody", b: "Simba", c: "Buzz Lightyear", d: "Shrek" },
-            correct: "c"
-        },
-        {
-            question: "Film animasi 'The Lion King' mengambil inspirasi dari karya siapa?",
-            answers: { a: "Charles Dickens", b: "Shakespeare", c: "Homer", d: "Hans Christian Andersen" },
-            correct: "b"
-        },
-        {
-            question: "Animasi Jepang dikenal dengan istilah?",
-            answers: { a: "Cartoon", b: "Manga", c: "Anime", d: "Animation" },
-            correct: "c"
-        },
-        {
-            question: "Apa nama anjing dalam film animasi Up?",
-            answers: { a: "Duke", b: "Buddy", c: "Max", d: "Dug" },
-            correct: "d"
-        },
-        {
-            question: "Siapa pencipta karakter animasi Doraemon?",
-            answers: { a: "Osamu Tezuka", b: "Fujiko F. Fujio", c: "Hayao Miyazaki", d: "Masashi Kishimoto" },
-            correct: "b"
-        },
-        {
-            question: "Studio mana yang memproduksi 'Shrek'?",
-            answers: { a: "Disney", b: "Pixar", c: "DreamWorks", d: "Studio Ghibli" },
-            correct: "c"
-        }
-    ],
-    astronomy: [
-        {
-            question: "Planet terdekat dengan Matahari adalah?",
-            answers: { a: "Bumi", b: "Venus", c: "Merkurius", d: "Mars" },
-            correct: "c"
-        },
-        {
-            question: "Berapa banyak planet dalam tata surya kita?",
-            answers: { a: "7", b: "8", c: "9", d: "10" },
-            correct: "b"
-        },
-        {
-            question: "Galaksi kita dikenal dengan nama?",
-            answers: { a: "Milky Way", b: "Andromeda", c: "Whirlpool", d: "Triangulum" },
-            correct: "a"
-        },
-        {
-            question: "Apa nama planet terbesar di tata surya?",
-            answers: { a: "Bumi", b: "Mars", c: "Jupiter", d: "Saturnus" },
-            correct: "c"
-        },
-        {
-            question: "Matahari adalah contoh dari jenis bintang apa?",
-            answers: { a: "White Dwarf", b: "Red Giant", c: "Main Sequence Star", d: "Neutron Star" },
-            correct: "c"
-        },
-        {
-            question: "Berapa jumlah bulan yang dimiliki Bumi?",
-            answers: { a: "1", b: "2", c: "0", d: "3" },
-            correct: "a"
-        },
-        {
-            question: "Planet apa yang dikenal dengan 'Planet Merah'?",
-            answers: { a: "Mars", b: "Venus", c: "Merkurius", d: "Jupiter" },
-            correct: "a"
-        },
-        {
-            question: "Saturnus dikenal karena?",
-            answers: { a: "Atmosfernya yang beracun", b: "Ukuran yang besar", c: "Cincin-cincinnya", d: "Panasnya yang ekstrem" },
-            correct: "c"
-        },
-        {
-            question: "Apa objek terbesar di tata surya kita?",
-            answers: { a: "Jupiter", b: "Matahari", c: "Saturnus", d: "Bumi" },
-            correct: "b"
-        },
-        {
-            question: "Apa nama planet ketiga dari Matahari?",
-            answers: { a: "Mars", b: "Bumi", c: "Venus", d: "Jupiter" },
-            correct: "b"
-        }
-    ],
-    islam: [
-        {
-            question: "Hari raya besar umat Islam yang dirayakan dengan penyembelihan hewan adalah?",
-            answers: { a: "Idul Fitri", b: "Maulid Nabi", c: "Idul Adha", d: "Isra Miraj" },
-            correct: "c"
-        },
-        {
-            question: "Puasa di bulan Ramadan adalah rukun Islam ke-?",
-            answers: { a: "1", b: "2", c: "3", d: "4" },
-            correct: "c"
-        },
-        {
-            question: "Nabi Muhammad SAW dilahirkan di kota?",
-            answers: { a: "Madinah", b: "Mekkah", c: "Yathrib", d: "Taif" },
-            correct: "b"
-        },
-        {
-            question: "Al-Quran diturunkan secara berangsur-angsur selama?",
-            answers: { a: "13 tahun", b: "15 tahun", c: "23 tahun", d: "25 tahun" },
-            correct: "c"
-        },
-        {
-            question: "Salat lima waktu disebut juga dengan?",
-            answers: { a: "Salat Sunnah", b: "Salat Wajib", c: "Salat Jumat", d: "Salat Sunnat" },
-            correct: "b"
-        },
-        {
-            question: "Sebelum membaca Al-Quran, umat Islam dianjurkan untuk membaca?",
-            answers: { a: "Surah Al-Fatihah", b: "Basmalah", c: "Ayat Kursi", d: "Doa Qunut" },
-            correct: "b"
-        },
-        {
-            question: "Nabi terakhir yang diutus oleh Allah SWT adalah?",
-            answers: { a: "Nabi Isa AS", b: "Nabi Musa AS", c: "Nabi Muhammad SAW", d: "Nabi Ibrahim AS" },
-            correct: "c"
-        },
-        {
-            question: "Berapa jumlah rukun Islam?",
-            answers: { a: "4", b: "5", c: "6", d: "7" },
-            correct: "b"
-        },
-        {
-            question: "Dalam Islam, hari Jumat dianggap sebagai?",
-            answers: { a: "Hari biasa", b: "Hari raya mingguan", c: "Hari libur", d: "Hari amal" },
-            correct: "b"
-        },
-        {
-            question: "Siapakah malaikat yang menyampaikan wahyu kepada Nabi Muhammad SAW?",
-            answers: { a: "Mikail", b: "Israfil", c: "Izrail", d: "Jibril" },
-            correct: "d"
-        }
-    ]
-};
+
+    };
 
 
-let currentTheme = '';
-let currentQuestionIndex = 0;
-let score = 0;
+    let currentTheme = ''; // Variabel untuk menyimpan tema yang dipilih
+let currentQuestionIndex = 0; // Variabel untuk menyimpan indeks pertanyaan saat ini
+let score = 0; // Variabel untuk menyimpan skor pemain
 
-function startQuiz(theme) {
-    currentTheme = theme;
-    currentQuestionIndex = 0;
-    score = 0;
-    document.getElementById("welcome-screen").style.display = "none";
-    document.getElementById("quiz").style.display = "block";
-    loadQuestion();
-    updateProgress();
+function showNotification() { // Fungsi untuk menampilkan notifikasi jika nama tidak diisi
+    const notification = document.getElementById("name-notification"); // Mengambil elemen notifikasi berdasarkan ID
+    notification.classList.add("show"); // Menambahkan kelas "show" untuk menampilkan notifikasi
+    setTimeout(() => { // Mengatur timer untuk menyembunyikan notifikasi setelah waktu tertentu
+        notification.classList.remove("show"); // Menghapus kelas "show" setelah 3 detik
+    }, 3000); // Durasi timer selama 3000 milidetik atau 3 detik
 }
 
-function loadQuestion() {
-    const questions = allQuestions[currentTheme];
-    const questionObj = questions[currentQuestionIndex];
-    document.getElementById("question").textContent = questionObj.question;
-    document.getElementById("a").textContent = questionObj.answers.a;
-    document.getElementById("b").textContent = questionObj.answers.b;
-    document.getElementById("c").textContent = questionObj.answers.c;
-    document.getElementById("d").textContent = questionObj.answers.d;
-    document.getElementById("question-number").textContent = `Pertanyaan ${currentQuestionIndex + 1} dari 10`;
-    document.getElementById("next-btn").disabled = true;
+function startQuiz(theme) { // Fungsi untuk memulai kuis dengan tema yang dipilih
+    const playerName = document.getElementById("player-name").value.trim(); // Mendapatkan dan memangkas input nama pemain
+    if (playerName === "") { // Memeriksa jika input nama kosong
+        showNotification(); // Jika kosong, memanggil fungsi notifikasi
+        return; // Menghentikan fungsi jika input nama kosong
+    }
+    
+    // Sembunyikan tombol "Back"
+    document.getElementById("back-button").style.display = "none"; // Menyembunyikan tombol kembali dengan mengubah display menjadi "none"
+    
+    currentTheme = theme; // Mengatur variabel tema sesuai dengan pilihan pemain
+    currentQuestionIndex = 0; // Mengatur indeks pertanyaan saat ini menjadi 0 (pertanyaan pertama)
+    score = 0; // Mengatur ulang skor menjadi 0
+    document.getElementById("welcome-screen").style.display = "none"; // Menyembunyikan layar sambutan
+    document.getElementById("quiz").style.display = "block"; // Menampilkan area kuis
+    loadQuestion(); // Memanggil fungsi loadQuestion untuk memuat pertanyaan pertama
+    updateProgress(); // Memanggil fungsi updateProgress untuk mengatur ulang progress bar
+}
+
+function loadQuestion() { // Fungsi untuk memuat pertanyaan saat ini
+    const questions = allQuestions[currentTheme]; // Mendapatkan array pertanyaan dari tema yang dipilih
+    const questionObj = questions[currentQuestionIndex]; // Mengambil objek pertanyaan berdasarkan indeks saat ini
+    document.getElementById("question").textContent = questionObj.question; // Menampilkan teks pertanyaan di area pertanyaan
+    document.getElementById("a").textContent = questionObj.answers.a; // Menampilkan pilihan jawaban A
+    document.getElementById("b").textContent = questionObj.answers.b; // Menampilkan pilihan jawaban B
+    document.getElementById("c").textContent = questionObj.answers.c; // Menampilkan pilihan jawaban C
+    document.getElementById("d").textContent = questionObj.answers.d; // Menampilkan pilihan jawaban D
+    document.getElementById("question-number").textContent = `Pertanyaan ${currentQuestionIndex + 1} dari 10`; // Menampilkan nomor pertanyaan saat ini
+    document.getElementById("next-btn").disabled = true; // Menonaktifkan tombol "Lanjut" sampai jawaban dipilih
 
     // Mengaktifkan kembali semua tombol jawaban
-    document.querySelectorAll('.answer').forEach(el => {
-        el.classList.remove("correct", "incorrect");
-        el.disabled = false;
+    document.querySelectorAll('.answer').forEach(el => { // Mengambil semua elemen dengan kelas "answer"
+        el.classList.remove("correct", "incorrect"); // Menghapus kelas "correct" dan "incorrect" dari elemen jawaban
+        el.disabled = false; // Mengaktifkan kembali tombol jawaban
     });
 }
 
-function answer(selected) {
-    const questions = allQuestions[currentTheme];
-    const questionObj = questions[currentQuestionIndex];
-    const feedback = document.getElementById("feedback");
+function answer(selected) { // Fungsi untuk menangani jawaban yang dipilih
+    const questions = allQuestions[currentTheme]; // Mendapatkan array pertanyaan dari tema yang dipilih
+    const questionObj = questions[currentQuestionIndex]; // Mendapatkan objek pertanyaan saat ini
+    const feedback = document.getElementById("feedback"); // Mendapatkan elemen untuk menampilkan feedback
 
     // Menonaktifkan semua tombol jawaban setelah memilih
-    document.querySelectorAll('.answer').forEach(el => el.disabled = true);
+    document.querySelectorAll('.answer').forEach(el => el.disabled = true); // Loop untuk menonaktifkan semua tombol jawaban
 
-    if (selected === questionObj.correct) {
-        score++;
-        feedback.textContent = "Benar!";
-        feedback.classList.add("correct", "show");
+    if (selected === questionObj.correct) { // Memeriksa jika jawaban yang dipilih benar
+        score++; // Menambahkan 1 poin pada skor
+        feedback.textContent = "Benar!"; // Menampilkan teks "Benar!" di elemen feedback
+        feedback.classList.add("correct", "show"); // Menambahkan kelas "correct" dan "show" pada feedback
     } else {
-        feedback.textContent = "Salah!";
-        feedback.classList.add("incorrect", "show");
+        feedback.textContent = "Salah!"; // Menampilkan teks "Salah!" di elemen feedback
+        feedback.classList.add("incorrect", "show"); // Menambahkan kelas "incorrect" dan "show" pada feedback
     }
 
     // Menambahkan kelas "correct" atau "incorrect" pada jawaban yang dipilih
-    document.getElementById(selected).classList.add(selected === questionObj.correct ? "correct" : "incorrect");
+    document.getElementById(selected).classList.add(selected === questionObj.correct ? "correct" : "incorrect"); // Mengubah warna jawaban sesuai benar atau salah
 
     // Menampilkan feedback selama 1 detik
-    setTimeout(() => feedback.classList.remove("show"), 1000);
+    setTimeout(() => feedback.classList.remove("show"), 1000); // Menghapus kelas "show" dari feedback setelah 1 detik
     
     // Mengaktifkan tombol "next"
-    document.getElementById("next-btn").disabled = false;
+    document.getElementById("next-btn").disabled = false; // Mengaktifkan tombol "Lanjut"
 }
 
-function nextQuestion() {
-    const questions = allQuestions[currentTheme];
-    currentQuestionIndex++;
-    document.getElementById("progress").style.width = `${(currentQuestionIndex / questions.length) * 100}%`;
+function nextQuestion() { // Fungsi untuk memuat pertanyaan berikutnya
+    const questions = allQuestions[currentTheme]; // Mendapatkan array pertanyaan dari tema yang dipilih
+    currentQuestionIndex++; // Menambah indeks ke pertanyaan berikutnya
+    document.getElementById("progress").style.width = `${(currentQuestionIndex / questions.length) * 100}%`; // Memperbarui lebar progress bar sesuai jumlah pertanyaan
 
-    if (currentQuestionIndex < questions.length) {
-        loadQuestion();
+    if (currentQuestionIndex < questions.length) { // Memeriksa jika masih ada pertanyaan tersisa
+        loadQuestion(); // Memuat pertanyaan berikutnya
     } else {
-        endQuiz();
+        endQuiz(); // Mengakhiri kuis jika tidak ada pertanyaan lagi
     }
 }
 
-function updateProgress() {
-    document.getElementById("progress").style.width = "0%";
+function updateProgress() { // Fungsi untuk mengatur ulang progress bar
+    document.getElementById("progress").style.width = "0%"; // Mengatur lebar progress bar ke 0%
 }
 
-function endQuiz() {
-    document.getElementById("quiz").style.display = "none";
-    document.getElementById("main-container").innerHTML = `
-        <div class="result-container">
-            <h2>Hasil Kuis</h2>
+function endQuiz() { // Fungsi untuk menampilkan hasil akhir kuis
+    document.getElementById("quiz").style.display = "none"; // Menyembunyikan area kuis
+    document.getElementById("main-container").innerHTML = ` 
+        <div class="result-container"> 
+            <h2>Hasil Kuis</h2> 
             <div class="result-stats">
                 <div class="stat-item">Nama: ${document.getElementById("player-name").value}</div>
                 <div class="stat-item">Tema: ${currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}</div>
@@ -720,7 +837,7 @@ function endQuiz() {
         </div>
     `;
 }
+</script>
 
-    </script>
-</body>
-</html>
+    </body>
+    </html>
